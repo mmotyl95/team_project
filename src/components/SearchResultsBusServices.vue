@@ -41,11 +41,11 @@ const results = computed(() => fuse.search(store.query, { limit: 10 }));
     <p class="header is-5 has-text-centered mb-4">Bus Services</p>
 
     <div
-      class="columns is-mobile is-centered has-background-link-light mb-4 mx-1"
+      class="columns is-mobile has-background-link-light mb-4 mx-1"
       v-for="(result, i) in results"
       :key="i"
     >
-      <div class="column has-text-centered">
+      <div class="column">
         <!-- 
           Okay this section was a pain in the ass. So originally I gave the variable a 
           true bool value and a @click = showBusServicesRoute != showBusServicesRoute, 
