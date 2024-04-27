@@ -1,21 +1,29 @@
 <template>
   <div class="field has-addons has-addons-centered">
     <div class="control has-icons-left">
-      <!-- Binding this input element to a reactive property called query. When the user types into the input field, the search method is called, which fetches a list of suggestions based on the current value of query. The suggestions are then displayed in a list below the input field. -->
+      <!--
+        Binding this input element to a reactive property called query. When the user
+        types into the input field, the computed function will listen for changes in the query,
+        which fetches a list of suggestions based on the current value of query. The suggestions 
+        are then displayed in a list below the input field.
+      -->
       <input
         class="input is-rounded is-hovered"
         type="text"
         placeholder="Search buses and bus stops..."
         v-model="query"
-        @input="search"
       />
+
       <span class="icon is-left">
         <i class="fas fa-search"></i>
       </span>
+
       <!-- 
-        Only show the unordered list of items when showResults turns true, which will be when there is input in the search box. To ensure the list of results is usable, we want the user to click on one of the result and show that value as the chosen one. 
+        Only show the unordered list of items if the query is not an empty string, which 
+        will change if there is input in the search box. To ensure the list of results is 
+        usable, we want the user to click on one of the result and show that value as the chosen one. 
       -->
-      <ul class="search-result" v-if="showResults">
+      <ul class="search-result" v-if="query !== ''">
         <!-- Bus Stop Code:
         <li
           class="search-results"
@@ -28,8 +36,8 @@
         Bus Stop Name:
         <li
           class="search-results"
-          v-for="result in results"
-          :key="result"
+          v-for="(result, i) in results"
+          :key="i"
           @click="selectResult(result)"
         >
           {{ result.Name }}
@@ -43,84 +51,64 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
-let query = ref("");
-let results = ref([]);
-let showResults = ref(false);
+/**
+ * busStops have key values that are numerical which stands for the bus stop ID,
+ * each ID is an array with * 3 numerical key values which are lat, lon and name of bus stop.
+ */
+import busStops from "../assets/formattedData.json";
 
-// When user clicks on one of the results, we need to close the list of results for a better user experience and assign the query value as the chosen result.
+const query = ref("");
+const showResults = ref(false);
+
+/**
+ * Search results of the bus stop name, will be a list of bus stop objects
+ */
+const results = computed(function () {
+  /**
+   * Lowercase the query once to use for search, rather than calling
+   * the `toLowerCase` method repeatedly.
+   */
+  const queryString = query.value.toLowerCase();
+  const listOfBustStopsThatMatch = [];
+
+  for (const busStop of busStops)
+    if (busStop.Name.toLowerCase().includes(queryString)) {
+      listOfBustStopsThatMatch.push(busStop);
+
+      // Return the array early if there is already 5 matches or more
+      if (listOfBustStopsThatMatch.length >= 5) return listOfBustStopsThatMatch;
+    }
+
+  return listOfBustStopsThatMatch;
+});
+
+/**
+ * When user clicks on one of the results, we need to close the list of results
+ * for a better user experience and assign the query value as the chosen result.
+ */
 const selectResult = (result) => {
   query.value = result;
   showResults.value = false;
 };
 
-/*
- * Originally both api calls were seperate functions
- * but I require them to run at the same time but if
- * I just seperate their fetches into 2 different awaits,* the await keyword pauses the function so the second   * request won't happen till the first one finishes. We  * can have them both run at the sam time using the      * Promise.all() method. This method accepts a single    * argument, which is an array of promises, which makes response an array now.
- * https://dev.to/alexmercedcoder/making-multiple-api-calls-in-javascript-kip
+// 83139 -- Example bus code
+/**
+ * Function to get bus arrival data with a given bus stop code
  */
-async function search() {
-  const response = await Promise.all([
-    // Fetches all the bus stops in Singapore
-    fetch(`src/assets/formattedData.json`),
-
-    //returns the bus arrival data base on bus stop code
-    fetch(`https://arrivelah2.busrouter.sg/?id=83139`),
-  ]);
-
-  // busStops and busServices are both objects
-  /* busStops have key values that are numerical which   * stands for the bus stop ID, each ID is an array with * 3 numerical key values which are lat, lon and name of bus stop.
+async function getBusArrivalData(busStopCode) {
+  /**
+   * Get the bus arrival data with the bus stop code.
+   * busServices has an object string key value of "services" which contains arrays,
+   * with each array contains an object with the specifics of next bus arrival
    */
-  const busStops = await response[0].json();
+  const busServices = await fetch(
+    `https://arrivelah2.busrouter.sg/?id=${busStopCode}`
+  ).then((res) => res.json());
 
-  /* busServices has an object string key value of      * "services" which is contain arrays, with each array
-   * contains an object with the specifics of next bus arrival
-   */
-  const busServices = await response[1].json();
-
-  // Stores the bus stop data in the results array
-  results.value = busStops;
-
-  // console.log(busServices);
-  // console.log(busStops);
-
-  // becomes true to show the list of results to user
-  showResults.value = true;
-
-  return busStops.filter((result) =>
-    result.toLowerCase().includes(query.value.toLowerCase())
-  );
+  return busServices;
 }
-
-// if (JSON.stringify(results).includes(query)) {
-//   console.log("Input value found in data");
-// } else {
-//   console.log("Input value not found in data");
-// }
-
-// An attempt
-// let matches = 0;
-//     if (
-//       result.Name.toLowerCase().includes(
-//         query.value.toLowerCase() && matches < 10
-//       )
-//     )
-//       console.log("Input value found)");
-//     // matches++;
-//     else {
-//       console.log("input not found");
-//     }
-//     return result;
-//   });
-
-// Another attempt
-// const result = busStops.filter((data) => {
-//   return Object.keys(data).some((key) => {
-//     return JSON.stringify(data[key].trim().includes(query));
-//   });
-// });
 </script>
 
 <style scoped>
