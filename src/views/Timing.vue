@@ -17,27 +17,6 @@ const getBusArrival = async (busStopID) =>
   );
 
 const busServices = await getBusArrival(props.busStopID);
-
-async function busRoute() {
-  const routes = await fetch(
-    `https://tih-api.stb.gov.sg/smartdocs/v1/sendrequest?targeturl=https://api.stb.gov.sg/services/transport/v2/bus-routes/${143}`,
-    {
-      method: "GET",
-      mode: "cors",
-      headers: {
-        "x-api-key": "MxMU9TgdQUH6tCqGs4gVEFgAGZWOA4Q7",
-      },
-    }
-  ).then((res) => res.json());
-
-  const actualRouteData = JSON.parse(
-    decodeURIComponent(routes.responseContent)
-  );
-
-  console.log(actualRouteData.data);
-}
-
-// busRoute();
 </script>
 
 <template>
@@ -90,11 +69,14 @@ async function busRoute() {
     but when all the values are loop through using the v-for directive,
     not all of the values are aligned centered. Therefore we change to columns.
    -->
-  <div
+  <router-link
     class="columns is-mobile has-background-link-light mb-4 mx-1"
     v-for="(busService, i) in busServices.services"
     :key="i"
-    @click="busRoute"
+    :to="{
+      name: 'busRoute',
+      params: { busNumber: busService.no },
+    }"
   >
     <div class="column has-text-centered">
       <p class="heading">Bus</p>
@@ -141,7 +123,7 @@ async function busRoute() {
         {{ Math.floor(busService.next3.duration_ms / 60000) }}
       </p>
     </div>
-  </div>
+  </router-link>
 </template>
 
 <style scoped>
