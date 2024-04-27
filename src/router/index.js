@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Timing from "../views/Timing.vue";
 import Search from "../views/Search.vue";
+import busRoute from "../views/busRoute.vue";
 
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
@@ -13,15 +14,21 @@ const router = createRouter({
       component: Home,
     },
     {
-      path: "/Timing/:busStopID/:busStopName",
+      path: "/timing/:busStopID/:busStopName",
       name: "Timing",
       component: Timing,
       props: true,
     },
     {
-      path: "/Search",
+      path: "/search",
       name: "Search",
       component: Search,
+    },
+    {
+      path: "/busroute/:busNumber",
+      name: "busRoute",
+      component: busRoute,
+      props: true,
     },
   ],
 });
