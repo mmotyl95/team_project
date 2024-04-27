@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import { useStore } from "../stores/store";
+import { getBusArrival } from "../api/getBusArrival";
 
 const cardStore = useStore();
 
