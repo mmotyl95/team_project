@@ -1,11 +1,11 @@
 <script setup>
 import SearchBar from "@/components/SearchBar.vue";
-// import BusCards from "../components/BusCards.vue";
+import BusCards from "@/components/BusCards.vue";
 </script>
 
 <template>
   <main>
     <SearchBar />
-    <!-- <BusCards /> -->
+    <BusCards />
   </main>
 </template>

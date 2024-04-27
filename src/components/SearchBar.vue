@@ -42,6 +42,27 @@ const selectResult = (result) => {
   query.value = result;
   showResults.value = false;
 };
+
+// This function returns the bus arrival data base on bus stop code, therefore i need to link this function and give feed the bus code paramters dynamic value from the search box.
+async function fetchBusService() {
+  const busService = await fetch(
+    `https://arrivelah2.busrouter.sg/?id=83139`
+  ).then((response) => response.json());
+
+  // console.log(busService);
+}
+// fetchBusService();
+
+// This function fetches all the bus stops in Singapore and puts them an object, thus the busStop const is an object now.
+async function fetchBusStops() {
+  const busStops = await fetch(
+    "https://data.busrouter.sg/v1/stops.min.json"
+  ).then((response) => response.json());
+
+  console.log(busStops);
+}
+
+fetchBusStops();
 </script>
 
 <style scoped></style>
