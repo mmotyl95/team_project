@@ -109,7 +109,7 @@ const hasFavourited = computed(() => {
       aria-label="main navigation"
     >
       <div class="navbar-brand">
-        <div class="navbar-item">Shelby's Bus App</div>
+        <div class="navbar-item">SG Bussin</div>
         <!-- 
           Navbar burger only is shown on touch devices so there is a navbar menu 
           below with the same exact icons and routing to search page. But if navbar-burger 

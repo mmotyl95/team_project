@@ -1,4 +1,4 @@
-# Bus Schedule PWA
+# Bus Schedule PWA (SG Bussin')
 
 A Progressive Web App that provides real-time bus schedule information for users.
 
@@ -12,14 +12,13 @@ I build this because the bus app that i'm currently using has these issues:
 ## Features
 
 - Real-time bus schedule information
-- User-friendly interface
 - Responsive design and optimal viewing for **mobile devices**
 - [Video Demo Here](https://youtube.com/shorts/fcdiq42dSrA)
 
 ## Tech Stack
 
 - Vue.js
-- RESTful APIs
+- REST API
 - Bulma (CSS framework)
 - TypeScript
 
@@ -27,15 +26,21 @@ I build this because the bus app that i'm currently using has these issues:
 
 1. Clone the repository to your local machine:
 
-git clone https://github.com/<your-username>/bus-schedule.git
+```
+git clone https://github.com/Sh3lby007/SG-Bussin
+```
 
 2. Install the required dependencies:
 
+```
 npm install
+```
 
 3. Start the development server:
 
+```
 npm run dev
+```
 
 The app should now be running on `http://localhost:8080/`
 
