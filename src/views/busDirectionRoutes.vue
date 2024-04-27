@@ -64,7 +64,7 @@ const busRoutes =
 
       <div class="navbar-burger pt-3 px-2">
         <router-link :to="{ name: 'Search' }" class="navbar-item">
-          <i class="fa fa-search"></i>
+          <i class="fa fa-search has-text-info"></i>
         </router-link>
       </div>
     </div>
@@ -76,7 +76,7 @@ const busRoutes =
     <div class="navbar-menu">
       <div class="navbar-end">
         <router-link :to="{ name: 'Search' }" class="navbar-item">
-          <i class="fa fa-search"></i>
+          <i class="fa fa-search has-text-info"></i>
         </router-link>
       </div>
     </div>

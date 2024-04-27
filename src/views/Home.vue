@@ -120,13 +120,13 @@ const hasFavourited = computed(() => {
           :to="{ name: 'Search' }"
           class="navbar-burger has-text-centered pt-4"
         >
-          <i class="fa fa-search"></i>
+          <i class="fa fa-search has-text-info"></i>
         </router-link>
       </div>
       <div class="navbar-menu">
         <div class="navbar-end">
           <router-link :to="{ name: 'Search' }" class="navbar-item">
-            <i class="fa fa-search"></i>
+            <i class="fa fa-search has-text-info"></i>
           </router-link>
         </div>
       </div>

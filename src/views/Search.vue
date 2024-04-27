@@ -64,7 +64,7 @@ onMounted(() => {
         ref="inputRef"
       />
       <span class="icon is-left">
-        <i class="fas fa-search"></i>
+        <i class="fa fa-search has-text-info"></i>
       </span>
       <!-- Show x icon only if query has value. -->
       <span v-if="store.query !== ''" class="icon is-right">
