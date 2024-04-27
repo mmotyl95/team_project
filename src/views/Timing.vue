@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import { useStore } from "../stores/counter";
 
 const cardStore = useStore();
@@ -16,7 +17,16 @@ const getBusArrival = async (busStopID) =>
     res.json()
   );
 
-const busServices = await getBusArrival(props.busStopID);
+/**
+ * busServices is accessed in template using the v-for directive, since we
+ * want the timing to be updated in real time, we just have to use setInterval
+ * to change its value every 30 seconds and it then needs to be a ref instead.
+ */
+const busServices = ref(await getBusArrival(props.busStopID));
+
+setInterval(async function () {
+  busServices.value = await getBusArrival(props.busStopID);
+}, 30000);
 </script>
 
 <template>
@@ -30,6 +40,7 @@ const busServices = await getBusArrival(props.busStopID);
       <router-link :to="{ name: 'Search' }" class="navbar-item">
         <i class="fa fa-arrow-left" aria-hidden="true"></i>
       </router-link>
+
       <!-- Home icon which takes us back to main page -->
       <router-link :to="{ name: 'home' }" class="navbar-item">
         <i class="fa fa-home" aria-hidden="true"></i>
@@ -43,6 +54,7 @@ const busServices = await getBusArrival(props.busStopID);
           @click="cardStore.toggleBusStop(busStopID)"
         ></i>
       </div>
+
       <div class="navbar-item">{{ busStopName }}</div>
       <div class="navbar-burger pt-3 px-2">
         <router-link :to="{ name: 'Search' }" class="navbar-item">
@@ -86,7 +98,6 @@ const busServices = await getBusArrival(props.busStopID);
     </div>
     <div class="column has-text-centered">
       <p class="heading">next</p>
-
       <!--
           (?.) aka optional chanining access an object's property or call a function.
           If the object accessed or function called is undefined or null, it returns
@@ -111,12 +122,14 @@ const busServices = await getBusArrival(props.busStopID);
         }}
       </p>
     </div>
+
     <div class="column has-text-centered">
       <p class="heading">Second</p>
       <p v-if="busService?.next2?.duration_ms" class="title is-5">
         {{ Math.floor(busService.next2.duration_ms / 60000) }}
       </p>
     </div>
+
     <div class="column has-text-centered">
       <p class="heading">Third</p>
       <p v-if="busService?.next3?.duration_ms" class="title is-5">
