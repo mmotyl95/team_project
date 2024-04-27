@@ -1,6 +1,5 @@
 <script setup>
 import { useStore } from "../stores/counter";
-
 import busStops from "../assets/busStop.json";
 
 const cardStore = useStore();
@@ -16,7 +15,10 @@ const cardStore = useStore();
       <div class="navbar-brand">
         <div class="navbar-item">Shelby's Bus App</div>
         <!-- 
-          Navbar burger only is shown on touch devices so there is a navbar menu below with the same exact icons and routing to search page. But if navbar-burger is removed, the search icon will disappear in mobile view although the navbar-end is present. Therefore an addition icon for navbar-menu is needed
+          Navbar burger only is shown on touch devices so there is a navbar menu 
+          below with the same exact icons and routing to search page. But if navbar-burger 
+          is removed, the search icon will disappear in mobile view although the navbar-end 
+          is present. Therefore an addition icon for navbar-menu is needed
          -->
         <router-link
           :to="{ name: 'Search' }"
@@ -34,7 +36,7 @@ const cardStore = useStore();
       </div>
     </nav>
 
-    <p class="header has-text-centered">Favourite Buses & Stops</p>
+    <p class="header has-text-centered mb-4">Favourite Buses & Stops</p>
 
     <router-link
       v-for="busStopID in Object.keys(cardStore.favouriteBusStops)"
@@ -66,9 +68,5 @@ const cardStore = useStore();
 <style>
 .columns {
   border-radius: 15px;
-}
-
-.header {
-  margin-bottom: 5%;
 }
 </style>

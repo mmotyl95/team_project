@@ -31,7 +31,7 @@ setInterval(async function () {
 
 <template>
   <nav
-    class="navbar has-background-light mb-5"
+    class="navbar has-background-light"
     role="navigation"
     aria-label="main navigation"
   >
@@ -81,7 +81,7 @@ setInterval(async function () {
   <iframe
     src="https://giphy.com/embed/PisferDnOMqQOMC4ir"
     width="100"
-    height="100"
+    height="50"
     class="giphy"
   ></iframe>
 
@@ -157,6 +157,7 @@ setInterval(async function () {
   color: red;
 }
 
+/* Give it a special none clickable pointer-event because without it, clicking it will redirect to gif source. */
 .giphy {
   pointer-events: none;
 }

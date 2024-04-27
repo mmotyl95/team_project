@@ -25,7 +25,7 @@ const router = createRouter({
       component: Search,
     },
     {
-      path: "/busroute/:busNumber",
+      path: "/busroute/:busNumber/:busStopID",
       name: "busRoute",
       component: busRoute,
       props: true,
