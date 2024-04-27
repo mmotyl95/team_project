@@ -13,7 +13,7 @@ I build this because the bus app that i'm currently using has these issues:
 
 - Real-time bus schedule information
 - Responsive design and optimal viewing for **mobile devices**
-- [Video Demo Here](https://youtube.com/shorts/fcdiq42dSrA)
+- [Video Demo Here](https://youtube.com/shorts/OKFCymNAI9k)
 
 ## Tech Stack
 
