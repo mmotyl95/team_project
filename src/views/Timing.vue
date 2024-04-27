@@ -10,16 +10,6 @@ const cardStore = useStore();
 const props = defineProps(["busStopID", "busStopName"]);
 
 /**
- * Get the bus arrival data with the bus stop code. busServices
- * has an object string key value of "services" which contains arrays,
- * with each array contains an object with the specifics of next bus arrival
- */
-const getBusArrival = async (busStopID) =>
-  fetch(`https://arrivelah2.busrouter.sg/?id=${busStopID}`).then((res) =>
-    res.json()
-  );
-
-/**
  * busServices is accessed in template using the v-for directive, since we
  * want the timing to be updated in real time, we just have to use setInterval
  * to change its value every 30 seconds and it then needs to be a ref instead.
@@ -101,6 +91,7 @@ setInterval(async function () {
         {{ busService.no }}
       </p>
     </div>
+
     <div class="column has-text-centered">
       <p class="heading">next</p>
       <!--
@@ -141,11 +132,13 @@ setInterval(async function () {
         {{ Math.floor(busService.next3.duration_ms / 60000) }}
       </p>
     </div>
+
     <div class="column has-text-centered is-1">
       <!-- 
         @click.prevent ensures that only the custom click event is executed and not the
         router-link element click event.
        -->
+
       <i
         :class="{
           active:
