@@ -68,7 +68,7 @@ const showBusServicesSearchResults = ref(true);
   <div class="columns is-mobile">
     <div class="column mr-5">
       <button
-        class="button"
+        class="button is-fullwidth"
         :class="{ 'is-success': showBusStopSearchResults }"
         @click="showBusStopSearchResults = !showBusStopSearchResults"
       >
@@ -78,7 +78,7 @@ const showBusServicesSearchResults = ref(true);
 
     <div class="column">
       <button
-        class="button"
+        class="button is-fullwidth"
         :class="{ 'is-success': showBusServicesSearchResults }"
         @click="showBusServicesSearchResults = !showBusServicesSearchResults"
       >
