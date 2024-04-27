@@ -109,7 +109,9 @@ const hasFavourited = computed(() => {
       aria-label="main navigation"
     >
       <div class="navbar-brand">
-        <div class="navbar-item">SG Bussin</div>
+        <div class="navbar-item is-size-5 has-text-weight-semibold">
+          SG Bussin
+        </div>
         <!-- 
           Navbar burger only is shown on touch devices so there is a navbar menu 
           below with the same exact icons and routing to search page. But if navbar-burger 
@@ -132,7 +134,9 @@ const hasFavourited = computed(() => {
       </div>
     </nav>
 
-    <p class="header has-text-centered mb-4">Favourite Buses & Stops</p>
+    <p class="header has-text-centered is-size-5 pt-3 pb-5">
+      Favourite Buses & Stops
+    </p>
 
     <FavouriteBusStops
       v-for="busStopID in Object.keys(cardStore.favouriteBusStops)"
