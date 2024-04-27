@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { getBusArrival } from "../api/getBusArrival";
+import { getBusArrival } from "../api/getBusInfo";
 
 interface Props {
   busNumber: string;

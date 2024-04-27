@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useStore } from "../stores/store";
-import { getBusArrival } from "../api/getBusArrival";
+import { getBusArrival } from "../api/getBusInfo";
 import LiveGif from "../components/LiveGif.vue";
 
 const cardStore = useStore();
