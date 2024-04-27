@@ -145,6 +145,18 @@ setInterval(async function () {
         {{ Math.floor(busService.next3.duration_ms / 60000) }}
       </p>
     </div>
+    <div class="column has-text-centered is-1">
+      <!-- 
+        @click.prevent ensures that only the custom click event is executed and not the
+        router-link element click event.
+       -->
+      <i
+        :class="{ active: cardStore.favouriteBusServices[busService.no] }"
+        class="fa-solid fa-heart"
+        aria-hidden="true"
+        @click.prevent="cardStore.toggleBusServices(busService.no)"
+      ></i>
+    </div>
   </router-link>
 </template>
 

@@ -29,6 +29,7 @@ export const useStore = defineStore("card", {
      * key value pair and the heart icon will toggle itself.
      */
     favouriteBusStops: {},
+    favouriteBusServices: {},
 
     query: "",
     // isRed: false,
@@ -64,7 +65,7 @@ export const useStore = defineStore("card", {
      * busStopID key a true value so that we can activate the active class in timing.vue
      *
      * Method above was how it was done previously when favouriteBusStops was an array.
-     * It became simplier now after changing to an object format and heart icon toggling
+     * It became simpler now after changing to an object format and heart icon toggling
      * issue is also solved.
      */
     toggleBusStop(busStopID) {
@@ -73,6 +74,17 @@ export const useStore = defineStore("card", {
         console.log("Removed from favourites.");
       } else {
         this.favouriteBusStops[busStopID] = true;
+        console.log("Favourited!");
+      }
+    },
+    /*
+     */
+    toggleBusServices(busNumber) {
+      if (this.favouriteBusServices[busNumber] === true) {
+        delete this.favouriteBusServices[busNumber];
+        console.log("Removed from favourites.");
+      } else {
+        this.favouriteBusServices[busNumber] = true;
         console.log("Favourited!");
       }
     },
