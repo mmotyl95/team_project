@@ -13,7 +13,6 @@ I build this because the bus app that i'm currently using has these issues:
 
 - Real-time bus schedule information
 - Responsive design and optimal viewing for **mobile devices**
-- [Video Demo Here](https://youtube.com/shorts/OKFCymNAI9k)
 
 ## Tech Stack
 
@@ -27,7 +26,7 @@ I build this because the bus app that i'm currently using has these issues:
 1. Clone the repository to your local machine:
 
 ```
-git clone https://github.com/Sh3lby007/SG-Bussin
+git clone https://github.com/mmotyl95/team_project
 ```
 
 2. Install the required dependencies:
@@ -49,11 +48,3 @@ The app should now be running on `http://localhost:8080/`
 This app makes use of the following API:
 
 - [arrivelah](https://github.com/cheeaun/arrivelah)
-
-## License
-
-This project is licensed under the [MIT License](https://github.com/Sh3lby007/SG-Bussin/blob/main/LICENSE).
-
-## Contact
-
-If you have any questions or feedback, please email me at [zhengshaobin00@gmail.com].

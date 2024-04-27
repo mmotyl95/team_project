@@ -21,7 +21,7 @@ export default defineConfig(({ mode }) => {
           name: "SG Bussin",
           short_name: "Bussin",
           description: "Bussin Bus Arrival App",
-          start_url: "/SG-Bussin/",
+          start_url: "/team-project/",
           theme_color: "#ffffff",
           display: "standalone",
           // Smaller icon as launcher icon, larger icon for app switch.
@@ -55,6 +55,6 @@ export default defineConfig(({ mode }) => {
     // When deploying to Github pages, the base URL will be your repo's name,
     // Thus the production base URL must be changed here for it to work when deployed.
     // Ref: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#next-steps
-    base: mode === "github-pages" ? "/SG-Bussin/" : "/",
+    base: mode === "github-pages" ? "/team-project/" : "/",
   };
 });
