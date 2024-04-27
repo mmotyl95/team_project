@@ -62,6 +62,16 @@ const selectResult = (result) => {
     params: { busStopID: result.ID, busStopName: result.Name },
   });
 };
+
+async function testApi() {
+  const street = await fetch(
+    `https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=1.2821,103.81722&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk2NDUsInVzZXJfaWQiOjk2NDUsImVtYWlsIjoiemhlbmdzaGFvYmluMDBAZ21haWwuY29tIiwiZm9yZXZlciI6ZmFsc2UsImlzcyI6Imh0dHA6XC9cL29tMi5kZmUub25lbWFwLnNnXC9hcGlcL3YyXC91c2VyXC9zZXNzaW9uIiwiaWF0IjoxNjcyOTEzMDM3LCJleHAiOjE2NzMzNDUwMzcsIm5iZiI6MTY3MjkxMzAzNywianRpIjoiOTNmNjY2MGQ4Mzc0ZmUyYWYzYjI1NjA2Y2U3Mzk1OWYifQ.OgQfeSMoIyDPclqCKjpG58y8Ga1CKIdY5RWrIab0Dzo
+`
+  ).then((res) => res.json());
+  console.log(street);
+}
+
+testApi();
 </script>
 
 <template>
