@@ -23,6 +23,8 @@ import { defineStore } from "pinia";
 export const useStore = defineStore("card", {
   state: () => ({
     favouriteBusStops: [],
+    query: "",
+    // isRed: false,
   }),
 
   /**
@@ -34,12 +36,22 @@ export const useStore = defineStore("card", {
    */
   actions: {
     toggleBusStop(busStopID) {
-      if (this.favouriteBusStops.includes(busStopID))
+      if (this.favouriteBusStops.includes(busStopID)) {
+        // https://stackoverflow.com/questions/5767325/how-can-i-remove-a-specific-item-from-an-array
+        // How to remove an item from an array using filter.
         this.favouriteBusStops = this.favouriteBusStops.filter(
           (id) => id !== busStopID
         );
-      else this.favouriteBusStops.push(busStopID);
-      console.log(id);
+        console.log("Removed from favourites.");
+        // this.isRed = false;
+      } else {
+        this.favouriteBusStops.push(busStopID);
+        console.log("Favourited!");
+        // this.isRed = true;
+      }
+    },
+    clearInput() {
+      this.query = "";
     },
   },
 
