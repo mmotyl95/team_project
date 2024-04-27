@@ -63,15 +63,21 @@ const selectResult = (result) => {
   });
 };
 
+// Gets the road name base on lat and lon location. What I need now is one call that gets me all of the road names in order of the json files so i can add them in altogether.
+
 async function testApi() {
-  const street = await fetch(
-    `https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=1.2821,103.81722&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk2NDUsInVzZXJfaWQiOjk2NDUsImVtYWlsIjoiemhlbmdzaGFvYmluMDBAZ21haWwuY29tIiwiZm9yZXZlciI6ZmFsc2UsImlzcyI6Imh0dHA6XC9cL29tMi5kZmUub25lbWFwLnNnXC9hcGlcL3YyXC91c2VyXC9zZXNzaW9uIiwiaWF0IjoxNjcyOTEzMDM3LCJleHAiOjE2NzMzNDUwMzcsIm5iZiI6MTY3MjkxMzAzNywianRpIjoiOTNmNjY2MGQ4Mzc0ZmUyYWYzYjI1NjA2Y2U3Mzk1OWYifQ.OgQfeSMoIyDPclqCKjpG58y8Ga1CKIdY5RWrIab0Dzo
+  for (const busStop of busStops) {
+    const street = await fetch(
+      `https://developers.onemap.sg/privateapi/commonsvc/revgeocode?location=${busStop.Latitude},${busStop.Longitude}&token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOjk2NDUsInVzZXJfaWQiOjk2NDUsImVtYWlsIjoiemhlbmdzaGFvYmluMDBAZ21haWwuY29tIiwiZm9yZXZlciI6ZmFsc2UsImlzcyI6Imh0dHA6XC9cL29tMi5kZmUub25lbWFwLnNnXC9hcGlcL3YyXC91c2VyXC9zZXNzaW9uIiwiaWF0IjoxNjcyOTEzMDM3LCJleHAiOjE2NzMzNDUwMzcsIm5iZiI6MTY3MjkxMzAzNywianRpIjoiOTNmNjY2MGQ4Mzc0ZmUyYWYzYjI1NjA2Y2U3Mzk1OWYifQ.OgQfeSMoIyDPclqCKjpG58y8Ga1CKIdY5RWrIab0Dzo
 `
-  ).then((res) => res.json());
-  console.log(street);
+    ).then((res) => res.json());
+    console.log(street);
+  }
 }
 
-testApi();
+const requestBody = JSON.stringify(busStops);
+
+console.log(requestBody);
 </script>
 
 <template>
