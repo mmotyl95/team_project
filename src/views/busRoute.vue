@@ -1,4 +1,5 @@
 <script setup>
+import { ref } from "vue";
 import allBus from "../assets/allBus.json";
 import busStop from "../assets/busStop.json";
 
@@ -14,13 +15,11 @@ const props = defineProps(["busNumber", "busStopID"]);
 
 /* 
 Original way of checking for busStopID in either of the array, but then i went 
-to test and realized that he order is mixed up sometimes because in the array, 
-the first and last bus stop id is the same but has its place swapped which 
+to test and realized that the order is mixed up sometimes because in the array, 
+the first and last busStopID is the same but has its place swapped which 
 results in the wrong order of direction displayed sometimes when user clicks 
 the bus service from timing page.
- */
 
-/* 
   const busRoutes = allBus[props.busNumber].routes[0].includes(props.busStopID)
   ? allBus[props.busNumber].routes[0]
   : allBus[props.busNumber].route[1];
@@ -35,33 +34,42 @@ the bus service from timing page.
  */
 
 /* 
+ Realized I need to assign busRoutes value to the first routes array for looping bus routes, 
+ but if the routes have 2 arrays, continue the previous logic. Need to use function because
+ we have to return the value if the first conditional statement is true.
+ */
+const busRoutes = ref(undefined);
+
 function checkBusStopID() {
   const firstRoute = allBus[props.busNumber].routes[0];
+  if (allBus[props.busNumber].name.includes("⟲")) {
+    busRoutes.value = firstRoute;
+    return;
+  }
   const secondRoute = allBus[props.busNumber].routes[1];
-  let busRoutes;
   if (
     firstRoute.includes(props.busStopID) &&
     secondRoute.includes(props.busStopID)
   ) {
     const firstIndex = firstRoute.indexOf(props.busStopID);
     const secondIndex = secondRoute.indexOf(props.busStopID);
-    busRoutes = firstIndex < secondIndex ? firstRoute : secondRoute;
+    busRoutes.value = firstIndex < secondIndex ? firstRoute : secondRoute;
   } else {
-    busRoutes = firstRoute.includes(props.busStopID) ? firstRoute : secondRoute;
+    busRoutes.value = firstRoute.includes(props.busStopID)
+      ? firstRoute
+      : secondRoute;
   }
   return busRoutes;
 }
-
-const busRoutes = checkBusStopID();
- */
+checkBusStopID();
 
 /* 
 Initialize different route array to be used as checker later and instantiate 
 memory for busRoute but don't assign values to it because it will change its values later. 
 */
-const firstRoute = allBus[props.busNumber].routes[0];
-const secondRoute = allBus[props.busNumber].routes[1];
-let busRoutes;
+// const firstRoute = allBus[props.busNumber].routes[0];
+// const secondRoute = allBus[props.busNumber].routes[1];
+// let busRoutes;
 
 /* 
 Check both routes array whether the busStopID exist, this is for the first and
@@ -71,20 +79,26 @@ We then use a ternary operator to determine the direction of the bus. If the ind
 the first array is smaller than that of the second array, the bus is going in the 
 direction of the first route, otherwise it is going in the direction of the second route.
  */
-if (
-  firstRoute.includes(props.busStopID) &&
-  secondRoute.includes(props.busStopID)
-) {
-  const firstIndex = firstRoute.indexOf(props.busStopID);
-  const secondIndex = secondRoute.indexOf(props.busStopID);
-  busRoutes = firstIndex < secondIndex ? firstRoute : secondRoute;
-} else {
-  /* 
+
+/* 
+This method of doing things does not take into consideration that some routes array 
+only have one array and thus for those routes, the secondRoute value is undefined which is a mistake.
+*/
+
+// if (
+//   firstRoute.includes(props.busStopID) &&
+//   secondRoute.includes(props.busStopID)
+// ) {
+//   const firstIndex = firstRoute.indexOf(props.busStopID);
+//   const secondIndex = secondRoute.indexOf(props.busStopID);
+//   busRoutes = firstIndex < secondIndex ? firstRoute : secondRoute;
+// } else {
+/* 
   Straightforward because if the busStopID exist only in one of the array, 
   just assign the busRoute array where the busStopID is found.
   */
-  busRoutes = firstRoute.includes(props.busStopID) ? firstRoute : secondRoute;
-}
+//   busRoutes = firstRoute.includes(props.busStopID) ? firstRoute : secondRoute;
+// }
 </script>
 
 <template>
