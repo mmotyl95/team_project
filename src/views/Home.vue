@@ -32,7 +32,7 @@ interface BusStops {
 }
 
 /**
- * When importing a JSON file in ts, it's treated as ab 'any' type by default.
+ * When importing a JSON file in ts, it's treated as an 'any' type by default.
  * This means that ts doesn't have any information about the shape of the data.
  * By creating an interface that defines the structure of the JSON data, we
  * are telling ts what the data should look like.
@@ -145,12 +145,16 @@ const hasFavourited = computed(() => {
         Show the text animation if the liveGif computed values are false
         Which means that in the favouriteBusServices, there are no objects.
       -->
-    <HomeText v-if="!hasFavourited" />
+    <div class="container has-text-centered">
+      <HomeText v-if="!hasFavourited" />
+    </div>
     <!-- 
       Show the liveGif if the liveGif computed values are true
       Which means that in the favouriteBusServices, there are objects
     -->
-    <LiveGif v-if="hasLiveGif" />
+    <div class="container has-text-centered">
+      <LiveGif v-if="hasLiveGif" />
+    </div>
 
     <FavouriteBusServices
       v-for="[busNumber, busStopID] in splitKeys"

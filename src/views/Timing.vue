@@ -70,7 +70,9 @@ setInterval(async function () {
   </nav>
 
   <!-- Live Gif to tell user that time is being updated in real time -->
-  <LiveGif />
+  <div class="container has-text-centered">
+    <LiveGif />
+  </div>
 
   <!--
     Originally used bulma's level for timing to be displayed horizontally,
