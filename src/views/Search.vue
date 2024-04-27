@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { useStore } from "../stores/store";
 import SearchResultsBusStops from "../components/SearchResultsBusStops.vue";
 import SearchResultsBusServices from "../components/SearchResultsBusServices.vue";
+import { onMounted } from "vue";
 
 const store = useStore();
 
@@ -10,12 +11,18 @@ const store = useStore();
 const showBusStopSearchResults = ref(true);
 const showBusServicesSearchResults = ref(true);
 
+// Creates a reactive reference to the input element, with a type of HTMLInputElement
+const inputRef = ref<HTMLInputElement | null>(null);
+
+// When this page is loaded, we will focu on the input element.
+onMounted(() => {
+  if (inputRef.value) inputRef.value.focus();
+});
 /**
  * Original way of implementing autocomplete search function before importing fuse.
  * Search results of the bus stop name, will be a list of bus stop objects
  */
 // const results = computed(function () {
-
 /**
  * Lowercase the query once to use for search, rather than calling
  * the `toLowerCase` method repeatedly.
@@ -38,9 +45,9 @@ const showBusServicesSearchResults = ref(true);
 
 <template>
   <div class="field has-addons has-addons-centered">
-    <router-link :to="{ name: 'home' }" class="icon pt-4 pr-5">
+    <a @click="$router.go(-1)" class="icon pt-4 pr-5">
       <i class="fa fa-arrow-left" aria-hidden="true"></i>
-    </router-link>
+    </a>
 
     <!--
           Binding this input element to a reactive property called query. When the user
@@ -54,6 +61,7 @@ const showBusServicesSearchResults = ref(true);
         type="text"
         placeholder="Search buses and bus stops..."
         v-model="store.query"
+        ref="inputRef"
       />
       <span class="icon is-left">
         <i class="fas fa-search"></i>
@@ -65,11 +73,11 @@ const showBusServicesSearchResults = ref(true);
     </div>
   </div>
 
-  <div class="columns is-mobile">
-    <div class="column mr-5">
+  <div class="columns is-mobile mb-4 mx-1">
+    <div class="column">
       <button
-        class="button is-fullwidth"
-        :class="{ 'is-success': showBusStopSearchResults }"
+        class="button is-fullwidth is-rounded is-outlined"
+        :class="{ 'is-active': showBusStopSearchResults }"
         @click="showBusStopSearchResults = !showBusStopSearchResults"
       >
         Bus Stops
@@ -78,11 +86,11 @@ const showBusServicesSearchResults = ref(true);
 
     <div class="column">
       <button
-        class="button is-fullwidth"
-        :class="{ 'is-success': showBusServicesSearchResults }"
+        class="button is-fullwidth is-rounded is-outlined"
+        :class="{ 'is-active': showBusServicesSearchResults }"
         @click="showBusServicesSearchResults = !showBusServicesSearchResults"
       >
-        Bus Service only
+        Bus Service
       </button>
     </div>
   </div>
@@ -97,8 +105,18 @@ const showBusServicesSearchResults = ref(true);
 
 <style>
 .vertical {
-  max-height: 200px;
+  max-height: 240px;
   overflow-x: hidden;
   overflow-y: auto;
+}
+
+.button.is-active {
+  background-color: rgb(227, 196, 155);
+  color: #fff;
+  border-color: transparent;
+}
+
+.button.is-active:hover {
+  background-color: rgb(198, 149, 88);
 }
 </style>
