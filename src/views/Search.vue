@@ -51,13 +51,17 @@ const selectResult = (result) => {
 
 <template>
   <div class="field has-addons has-addons-centered">
-    <div class="control has-icons-left">
+    <a href="/" class="icon pt-4 pr-6">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i>
+    </a>
+
+    <div class="control has-icons-left pr-5">
       <!--
-        Binding this input element to a reactive property called query. When the user
-        types into the input field, the computed function will listen for changes in the query,
-        which fetches a list of suggestions based on the current value of query. The suggestions 
-        are then displayed in a list below the input field.
-      -->
+          Binding this input element to a reactive property called query. When the user
+          types into the input field, the computed function will listen for changes in the query,
+          which fetches a list of suggestions based on the current value of query. The suggestions 
+          are then displayed in a list below the input field.
+        -->
       <input
         class="input"
         type="text"
@@ -70,10 +74,10 @@ const selectResult = (result) => {
       </span>
 
       <!-- 
-        Only show the unordered list of items if the query is not an empty string, which 
-        will change if there is input in the search box. To ensure the list of results is 
-        usable, we want the user to click on one of the result and show that value as the chosen one. 
-      -->
+          Only show the unordered list of items if the query is not an empty string, which 
+          will change if there is input in the search box. To ensure the list of results is 
+          usable, we want the user to click on one of the result and show that value as the chosen one. 
+        -->
       <ul class="search-result" v-if="query !== ''">
         <p class="title is-4">Bus Stop Name -- Bus Stop Code</p>
         <li

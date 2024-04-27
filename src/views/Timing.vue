@@ -1,15 +1,6 @@
 <script setup>
 // Define props that is used or busStopID and busStopName
-const props = defineProps({
-  busStopID: {
-    type: String,
-    required: true,
-  },
-  busStopName: {
-    type: String,
-    required: true,
-  },
-});
+const props = defineProps(["busStopID", "busStopName"]);
 
 /**
  * Get the bus arrival data with the bus stop code. busServices
