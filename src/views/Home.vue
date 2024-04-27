@@ -1,5 +1,7 @@
 <script setup>
-import BusCards from "@/components/BusCards.vue";
+import { useStore } from "../stores/counter";
+
+const cardStore = useStore();
 </script>
 
 <template>
@@ -26,6 +28,50 @@ import BusCards from "@/components/BusCards.vue";
         </div>
       </div>
     </nav>
-    <BusCards />
+
+    <div class="bus-cards">
+      <p class="header has-text-centered">Favourite Buses & Stops</p>
+
+      <div
+        class="columns is-multiline is-3-desktop is-8-widescreen is-2-fullhd"
+      >
+        <div class="column is-full">
+          <p class="notification is-primary">
+            Bus Stop Code||||
+            <span class="has-text-right is-capitalized">Bus stop name</span>
+          </p>
+        </div>
+        <div class="column is-full">
+          <p class="notification is-primary">
+            Bus Stop Code||||
+            <span class="has-text-right is-capitalized">Bus stop name</span>
+          </p>
+        </div>
+        <div class="column is-full">
+          <p class="notification is-primary">
+            Bus Stop Code||||
+            <span class="has-text-right is-capitalized">Bus stop name</span>
+          </p>
+        </div>
+        <div class="column is-full">
+          <p class="notification is-primary">
+            Bus Stop Code||||
+            <span class="has-text-right is-capitalized">Bus stop name</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    {{ cardStore.count }}
   </main>
 </template>
+
+<style>
+.column {
+  border-color: blue;
+}
+
+.header {
+  margin-bottom: 5%;
+}
+</style>
