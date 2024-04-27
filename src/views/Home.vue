@@ -1,5 +1,5 @@
 <script setup>
-import { useStore } from "../stores/counter";
+import { useStore } from "../stores/store";
 import busStops from "../assets/busStop.json";
 
 const cardStore = useStore();

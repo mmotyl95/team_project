@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useStore } from "../stores/counter";
+import { useStore } from "../stores/store";
 
 const cardStore = useStore();
 

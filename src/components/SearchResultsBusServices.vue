@@ -1,5 +1,5 @@
 <script setup>
-import { useStore } from "../stores/counter";
+import { useStore } from "../stores/store";
 import { computed } from "vue";
 import { ref } from "vue";
 import Fuse from "fuse.js";

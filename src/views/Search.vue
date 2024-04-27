@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from "vue";
-import { useStore } from "../stores/counter";
+import { useStore } from "../stores/store";
 import SearchResultsBusStops from "../components/SearchResultsBusStops.vue";
 import SearchResultsBusServices from "../components/SearchResultsBusServices.vue";
 
