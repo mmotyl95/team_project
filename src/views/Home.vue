@@ -22,9 +22,10 @@ import { computed } from "vue";
 
 interface BusStop {
   ID: string;
-  Name: string;
   Longitude: number;
   Latitude: number;
+  Name: string;
+  Street: string;
 }
 
 interface BusStops {
@@ -143,6 +144,7 @@ const hasFavourited = computed(() => {
       :key="busStopID"
       :busStopID="busStopID"
       :busStopName="busStopData[busStopID].Name"
+      :busStopStreet="busStopData[busStopID].Street"
     />
 
     <!-- 

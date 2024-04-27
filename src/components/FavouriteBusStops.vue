@@ -2,6 +2,7 @@
 const props = defineProps<{
   busStopID: string;
   busStopName: string;
+  busStopStreet: string;
 }>();
 </script>
 
@@ -25,6 +26,9 @@ const props = defineProps<{
     <div class="column">
       <p class="title is-5">
         {{ busStopName }}
+      </p>
+      <p class="subtitle is-6">
+        {{ busStopStreet }}
       </p>
     </div>
   </router-link>
