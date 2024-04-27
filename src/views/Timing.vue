@@ -1,6 +1,18 @@
 <script setup>
+import { useStore } from "../stores/counter";
+import { ref } from "vue";
+
+const isRed = ref(true);
+
+const cardStore = useStore();
+
 // Define props that is used or busStopID and busStopName
 const props = defineProps(["busStopID", "busStopName"]);
+
+function toggleClass() {
+  isRed.value = isRed != true;
+  console.log(isRed.value);
+}
 
 /**
  * Get the bus arrival data with the bus stop code. busServices
@@ -13,10 +25,6 @@ const getBusArrival = async (busStopID) =>
   );
 
 const busServices = await getBusArrival(props.busStopID);
-
-function favourite() {
-  console.log("saved");
-}
 </script>
 
 <template>
@@ -26,26 +34,28 @@ function favourite() {
     aria-label="main navigation"
   >
     <div class="navbar-brand">
-      <!--
-        This anker tag should return to the previous search result and it's
-        state, not to a fresh Search page. Leaving it here for interactivity.
-      -->
-      <a href="/Search" class="navbar-item">
+      <!-- Search icon that should return to the previous search result -->
+      <router-link :to="{ name: 'Search' }" class="navbar-item">
         <i class="fa fa-arrow-left" aria-hidden="true"></i>
-      </a>
+      </router-link>
+      <!-- Home icon which takes us back to main page -->
+      <router-link :to="{ name: 'home' }" class="navbar-item">
+        <i class="fa fa-home" aria-hidden="true"></i>
+      </router-link>
+
       <div class="navbar-item">
         <i
-          id="heart"
-          class="far fa-heart"
+          :class="{ active: isRed }"
+          class="fa-solid fa-heart"
           aria-hidden="true"
-          @click="favourite"
+          @click="cardStore.toggleBusStop(busStopID), toggleClass()"
         ></i>
       </div>
       <div class="navbar-item">{{ busStopName }}</div>
       <div class="navbar-burger pt-3 px-2">
-        <a href="/Search" class="navbar-item">
+        <router-link :to="{ name: 'Search' }" class="navbar-item">
           <i class="fa fa-search"></i>
-        </a>
+        </router-link>
       </div>
     </div>
 
@@ -55,9 +65,9 @@ function favourite() {
      -->
     <div class="navbar-menu">
       <div class="navbar-end">
-        <a href="/Search" class="navbar-item">
+        <router-link :to="{ name: 'Search' }" class="navbar-item">
           <i class="fa fa-search"></i>
-        </a>
+        </router-link>
       </div>
     </div>
   </nav>
@@ -73,7 +83,8 @@ function favourite() {
     :key="i"
   >
     <div class="column has-text-centered">
-      <p class="title">
+      <p class="heading">Bus</p>
+      <p class="title is-4">
         {{ busService.no }}
       </p>
     </div>
@@ -120,12 +131,11 @@ function favourite() {
 </template>
 
 <style scoped>
-#heart:hover {
-  color: red;
-  transform: scale(1.5);
-}
-
 .columns {
   border-radius: 15px;
+}
+
+.active {
+  color: red;
 }
 </style>

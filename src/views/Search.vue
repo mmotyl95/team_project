@@ -38,7 +38,6 @@ const results = computed(function () {
 });
 
 const selectResult = (result) => {
-  console.log(result);
   // Originlly the router push method was using path, that way is wrong as it does not go to the timing page but we should use the name instead like what we used in the router.js file.
 
   // Redirect to the Timing view and pass results as busStopID prop
@@ -51,9 +50,9 @@ const selectResult = (result) => {
 
 <template>
   <div class="field has-addons has-addons-centered">
-    <a href="/" class="icon pt-4 pr-6">
+    <router-link :to="{ name: 'home' }" class="icon pt-4 pr-6">
       <i class="fa fa-arrow-left" aria-hidden="true"></i>
-    </a>
+    </router-link>
 
     <div class="control has-icons-left pr-5">
       <!--
