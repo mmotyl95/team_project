@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: "shelbus schedule",
           short_name: "shelbus",
-          descripion: "Simple bus schedule app",
+          description: "Simple bus schedule app",
           start_url: "/",
           icons: [
             {
