@@ -154,7 +154,7 @@ setInterval(async function () {
         :class="{ active: cardStore.favouriteBusServices[busService.no] }"
         class="fa-solid fa-heart"
         aria-hidden="true"
-        @click.prevent="cardStore.toggleBusServices(busService.no)"
+        @click.prevent="cardStore.toggleBusServices(busService.no, busStopID)"
       ></i>
     </div>
   </router-link>

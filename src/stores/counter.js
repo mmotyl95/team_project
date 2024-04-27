@@ -78,13 +78,14 @@ export const useStore = defineStore("card", {
       }
     },
     /*
+    Copied previous method to toggle heart icon
      */
-    toggleBusServices(busNumber) {
-      if (this.favouriteBusServices[busNumber] === true) {
+    toggleBusServices(busNumber, busStopID) {
+      if (this.favouriteBusServices[busNumber] === busStopID) {
         delete this.favouriteBusServices[busNumber];
         console.log("Removed from favourites.");
       } else {
-        this.favouriteBusServices[busNumber] = true;
+        this.favouriteBusServices[busNumber] = busStopID;
         console.log("Favourited!");
       }
     },
