@@ -1,6 +1,4 @@
 <script setup>
-import SearchBar from "../components/SearchBar.vue";
-
 async function getBusArrival(result) {
   /**
    * Get the bus arrival data with the bus stop code.
@@ -18,17 +16,22 @@ getBusArrival();
 </script>
 
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="container">
-      <div class="navbar-brand">
-        <a href="" class="navbar-item">
-          <i class="fa fa-arrow-left" aria-hidden="true"></i>
-        </a>
-        <div class="navbar-item">
-          <SearchBar @select-result="getBusArrival(result)" />
-        </div>
-        <a href="" class="navbar-item">
-          <i id="heart" class="far fa-heart" aria-hidden="true"></i>
+  <nav
+    class="navbar is-fixed-top"
+    role="navigation"
+    aria-label="main navigation"
+  >
+    <div class="navbar-brand">
+      <!-- This anker tag should return to the previous search result and it's state, not to a fresh Search page. Leaving it here for interactivity -->
+      <a href="/Search" class="navbar-item">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i>
+      </a>
+      <div class="navbar-item">
+        <i id="heart" class="far fa-heart" aria-hidden="true"></i>
+      </div>
+      <div class="navbar-burger pt-3 px-1">
+        <a href="/Search" class="navbar-item">
+          <i class="fa fa-search" aria-hidden="true"></i>
         </a>
       </div>
     </div>

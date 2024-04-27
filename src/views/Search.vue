@@ -1,3 +1,69 @@
+<script setup>
+import { ref, computed } from "vue";
+
+/**
+ * busStops have key values that are numerical which stands for the bus stop ID,
+ * each ID is an array with * 3 numerical key values which are lat, lon and name of bus stop.
+ */
+import busStops from "../assets/formattedData.json";
+import { useRouter } from "vue-router";
+// const props = defineProps(["getBusArrival"]);
+
+const router = useRouter();
+const query = ref("");
+
+/**
+ * Search results of the bus stop name, will be a list of bus stop objects
+ */
+const results = computed(function () {
+  /**
+   * Lowercase the query once to use for search, rather than calling
+   * the `toLowerCase` method repeatedly.
+   */
+  const queryString = query.value.toLowerCase();
+  const listOfBustStopsThatMatch = [];
+
+  for (const busStop of busStops)
+    if (
+      busStop.Name.toLowerCase().includes(queryString) ||
+      busStop.ID.includes(queryString)
+    ) {
+      listOfBustStopsThatMatch.push(busStop);
+
+      // Return the array early if there is already 5 matches or more
+      if (listOfBustStopsThatMatch.length >= 5) return listOfBustStopsThatMatch;
+    }
+
+  return listOfBustStopsThatMatch;
+});
+
+const selectResult = (result) => {
+  // emit("getBusArrival", result);
+  console.log(result);
+  // Originlly the router push method was using path, that way is wrong as it does not go to the timing page but we should use the name instead like what we used in the router.js file.
+  router.push({ name: "Timing" });
+  // getBusArrivalData(result);
+};
+
+// 83139 -- Example bus code
+/**
+ * Function to get bus arrival data with a given bus stop code
+ */
+async function getBusArrivalData(result) {
+  /**
+   * Get the bus arrival data with the bus stop code.
+   * busServices has an object string key value of "services" which contains arrays,
+   * with each array contains an object with the specifics of next bus arrival
+   */
+  const busServices = await fetch(
+    `https://arrivelah2.busrouter.sg/?id=${result}`
+  ).then((res) => res.json());
+  console.log(busServices);
+
+  return busServices;
+}
+</script>
+
 <template>
   <div class="field has-addons has-addons-centered">
     <div class="control has-icons-left">
@@ -37,71 +103,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, computed } from "vue";
-
-/**
- * busStops have key values that are numerical which stands for the bus stop ID,
- * each ID is an array with * 3 numerical key values which are lat, lon and name of bus stop.
- */
-import busStops from "../assets/formattedData.json";
-import { useRouter } from "vue-router";
-const emit = defineEmits(["getBusArrival"]);
-
-const router = useRouter();
-const query = ref("");
-
-/**
- * Search results of the bus stop name, will be a list of bus stop objects
- */
-const results = computed(function () {
-  /**
-   * Lowercase the query once to use for search, rather than calling
-   * the `toLowerCase` method repeatedly.
-   */
-  const queryString = query.value.toLowerCase();
-  const listOfBustStopsThatMatch = [];
-
-  for (const busStop of busStops)
-    if (
-      busStop.Name.toLowerCase().includes(queryString) ||
-      busStop.ID.includes(queryString)
-    ) {
-      listOfBustStopsThatMatch.push(busStop);
-
-      // Return the array early if there is already 5 matches or more
-      if (listOfBustStopsThatMatch.length >= 5) return listOfBustStopsThatMatch;
-    }
-
-  return listOfBustStopsThatMatch;
-});
-
-const selectResult = (result) => {
-  console.log(result);
-  // Originlly the router push method was using path, that way is wrong as it does not go to the timing page but we should use the name instead like what we used in the router.js file.
-  router.push({ name: "Timing" });
-  getBusArrivalData(result);
-};
-
-// 83139 -- Example bus code
-/**
- * Function to get bus arrival data with a given bus stop code
- */
-async function getBusArrivalData(result) {
-  /**
-   * Get the bus arrival data with the bus stop code.
-   * busServices has an object string key value of "services" which contains arrays,
-   * with each array contains an object with the specifics of next bus arrival
-   */
-  const busServices = await fetch(
-    `https://arrivelah2.busrouter.sg/?id=${result}`
-  ).then((res) => res.json());
-  console.log(busServices);
-
-  return busServices;
-}
-</script>
 
 <style scoped>
 .search-results:hover {
