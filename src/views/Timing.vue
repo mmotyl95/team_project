@@ -19,7 +19,7 @@ const busServices = ref(await getBusArrival(props.busStopID));
 
 setInterval(async function () {
   busServices.value = await getBusArrival(props.busStopID);
-}, 30000);
+}, 20000);
 </script>
 
 <template>
@@ -48,7 +48,7 @@ setInterval(async function () {
         ></i>
       </div>
 
-      <div class="navbar-item">{{ busStopName }}</div>
+      <div class="navbar-item">{{ busStopID }} | {{ busStopName }}</div>
       <div class="navbar-burger pt-3 px-2">
         <router-link :to="{ name: 'Search' }" class="navbar-item">
           <i class="fa fa-search"></i>

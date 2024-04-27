@@ -65,7 +65,11 @@ const busRoutes = ref<string[]>([]);
 
 function checkBusStopID() {
   const firstRoute = allBusServices[props.busNumber].routes[0];
-  if (allBusServices[props.busNumber].name.includes("⟲")) {
+  // Didn't see the allBus json data clearly, there was actually 3 symbols.
+  if (
+    allBusServices[props.busNumber].name.includes("⟲") ||
+    allBusServices[props.busNumber].name.includes("→")
+  ) {
     busRoutes.value = firstRoute;
     return;
   }
