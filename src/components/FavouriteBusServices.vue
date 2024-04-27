@@ -58,6 +58,9 @@ setInterval(async function () {
             : Math.floor(arrival.next.duration_ms / 60000)
         }}
       </p>
+      <p v-else="busService?.next?.duration_ms === null" class="title is-5">
+        {{ `- ` }}
+      </p>
     </div>
 
     <div class="column has-text-centered">
@@ -65,12 +68,18 @@ setInterval(async function () {
       <p v-if="arrival?.next2?.duration_ms" class="title is-5">
         {{ Math.floor(arrival.next2.duration_ms / 60000) }}
       </p>
+      <p v-else="busService?.next2?.duration_ms === null" class="title is-5">
+        {{ `- ` }}
+      </p>
     </div>
 
     <div class="column has-text-centered">
       <p class="heading has-text-black">Third</p>
       <p v-if="arrival?.next3?.duration_ms" class="title is-5">
         {{ Math.floor(arrival.next3.duration_ms / 60000) }}
+      </p>
+      <p v-else="busService?.next3?.duration_ms === null" class="title is-5">
+        {{ `- ` }}
       </p>
     </div>
   </router-link>

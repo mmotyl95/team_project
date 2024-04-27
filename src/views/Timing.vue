@@ -117,7 +117,7 @@ setInterval(async function () {
           (?.) aka optional chanining access an object's property or call a function.
           If the object accessed or function called is undefined or null, it returns
           undefined instead of throwing an error. This statement means if busService
-          is undefined or null, the whole statement will be undefine, if it passes
+          is undefined or null, the whole statement will be undefined, if it passes
           busService and gets to next and it is undefined or null as well, the whole
           statement throws a undefined value instead of an error. This is needed since
           the api might not have data for the 3rd estimated time and hence we do not want
@@ -136,6 +136,9 @@ setInterval(async function () {
             : Math.floor(busService.next.duration_ms / 60000)
         }}
       </p>
+      <p v-else="busService?.next?.duration_ms === null" class="title is-5">
+        {{ `- ` }}
+      </p>
     </div>
 
     <div class="column has-text-centered">
@@ -143,12 +146,18 @@ setInterval(async function () {
       <p v-if="busService?.next2?.duration_ms" class="title is-5">
         {{ Math.floor(busService.next2.duration_ms / 60000) }}
       </p>
+      <p v-else="busService?.next2?.duration_ms === null" class="title is-5">
+        {{ `- ` }}
+      </p>
     </div>
 
     <div class="column has-text-centered">
       <p class="heading">Third</p>
       <p v-if="busService?.next3?.duration_ms" class="title is-5">
         {{ Math.floor(busService.next3.duration_ms / 60000) }}
+      </p>
+      <p v-else="busService?.next3?.duration_ms === null" class="title is-5">
+        {{ `- ` }}
       </p>
     </div>
 
