@@ -12,9 +12,10 @@ const router = createRouter({
       component: Home,
     },
     {
-      path: "/Timing",
+      path: "/Timing/:busStopID",
       name: "Timing",
       component: Timing,
+      props: true,
     },
     {
       path: "/Search",

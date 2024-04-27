@@ -1,18 +1,19 @@
 <script setup>
-async function getBusArrival(result) {
-  /**
-   * Get the bus arrival data with the bus stop code.
-   * busServices has an object string key value of "services" which contains arrays,
-   * with each array contains an object with the specifics of next bus arrival
-   */
-  const busServices = await fetch(
-    `https://arrivelah2.busrouter.sg/?id=${result}`
-  ).then((res) => res.json());
-  console.log(busServices);
+import { ref } from "vue";
 
-  return busServices;
-}
-getBusArrival();
+const props = defineProps(["busStopID"]);
+
+/**
+ * Get the bus arrival data with the bus stop code.
+ * busServices has an object string key value of "services" which contains arrays,
+ * with each array contains an object with the specifics of next bus arrival
+ */
+const getBusArrival = async (busStopID) =>
+  fetch(`https://arrivelah2.busrouter.sg/?id=${busStopID}`).then((res) =>
+    res.json()
+  );
+
+const busServices = ref(await getBusArrival(props.busStopID));
 </script>
 
 <template>
