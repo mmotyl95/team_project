@@ -11,9 +11,19 @@ import BusCards from "@/components/BusCards.vue";
     >
       <div class="navbar-brand">
         <div class="navbar-item">Shelby's Bus App</div>
+        <!-- 
+          Navbar burger only is shown on touch devices so there is a navbar menu below with the same exact icons and routing to search page. But if navbar-burger is removed, the search icon will disappear in mobile view although the navbar-end is present. Therefore an addition icon for navbar-menu is needed
+         -->
         <a href="/Search" class="navbar-burger has-text-centered pt-4">
-          <i class="fa fa-search" aria-hidden="true"></i>
+          <i class="fa fa-search"></i>
         </a>
+      </div>
+      <div class="navbar-menu">
+        <div class="navbar-end">
+          <a href="/Search" class="navbar-item">
+            <i class="fa fa-search"></i>
+          </a>
+        </div>
       </div>
     </nav>
     <BusCards />

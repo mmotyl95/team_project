@@ -13,15 +13,11 @@ const getBusArrival = async (busStopID) =>
     res.json()
   );
 
-const busServices = ref(await getBusArrival(props.busStopID));
+const busServices = await getBusArrival(props.busStopID);
 </script>
 
 <template>
-  <nav
-    class="navbar is-fixed-top"
-    role="navigation"
-    aria-label="main navigation"
-  >
+  <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <!-- This anker tag should return to the previous search result and it's state, not to a fresh Search page. Leaving it here for interactivity -->
       <a href="/Search" class="navbar-item">
