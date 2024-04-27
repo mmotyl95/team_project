@@ -89,14 +89,19 @@ async function search() {
   // becomes true to show the list of results to user
   showResults.value = true;
 
-  // let matches = 0;
-  // if (JSON.stringify(busStops).includes(query.value.toLowerCase()))
-  //   console.log("input match");
-
   return busStops.filter((result) =>
     result.toLowerCase().includes(query.value.toLowerCase())
   );
 }
+
+// if (JSON.stringify(results).includes(query)) {
+//   console.log("Input value found in data");
+// } else {
+//   console.log("Input value not found in data");
+// }
+
+// An attempt
+// let matches = 0;
 //     if (
 //       result.Name.toLowerCase().includes(
 //         query.value.toLowerCase() && matches < 10
@@ -110,6 +115,7 @@ async function search() {
 //     return result;
 //   });
 
+// Another attempt
 // const result = busStops.filter((data) => {
 //   return Object.keys(data).some((key) => {
 //     return JSON.stringify(data[key].trim().includes(query));
