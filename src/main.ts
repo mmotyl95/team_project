@@ -5,6 +5,7 @@ import "@fortawesome/fontawesome-free/css/all.min.css"
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
+import i18n from './plugins/i18n'
 
 import App from "./App.vue";
 import router from "./router";
@@ -12,4 +13,5 @@ import router from "./router";
 createApp(App)
   .use(createPinia().use(piniaPluginPersistedstate))
   .use(router)
+  .use(i18n)
   .mount("#app");

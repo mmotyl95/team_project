@@ -17,9 +17,11 @@
     "pinia": "^2.0.26",
     "pinia-plugin-persistedstate": "^3.0.1",
     "vue": "^3.2.45",
+    "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
+    "@intlify/vite-plugin-vue-i18n": "^7.0.0",
     "@types/node": "^18.11.18",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "@vitejs/plugin-vue": "^3.2.0",
