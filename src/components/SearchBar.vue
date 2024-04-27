@@ -1,6 +1,7 @@
 <template>
   <div class="field has-addons has-addons-centered">
     <div class="control has-icons-left">
+      <!-- Binding this input element to a reactive property called query. When the user types into the input field, the search method is called, which fetches a list of suggestions based on the current value of query. The suggestions are then displayed in a list below the input field. -->
       <input
         class="input is-rounded is-hovered"
         type="text"
@@ -11,10 +12,13 @@
       <span class="icon is-left">
         <i class="fas fa-search"></i>
       </span>
+      <!-- 
+        Only show the unordered list of items when showResults turns true, which will be when there is input in the search box. To ensure the list of results is usable, we want the user to click on one of the result and show that value as the chosen one. 
+      -->
       <ul v-if="showResults">
         <li
           v-for="result in results"
-          :key="result"
+          :key="result.ID"
           @click="selectResult(result)"
         >
           {{ result }}
@@ -34,35 +38,54 @@ const query = ref("");
 const results = ref([]);
 const showResults = ref(false);
 
-const search = () => {
-  showResults.value = true;
-};
-
+// When user clicks on one of the results, we need to close the list of results for a better user experience and assign the query value as the chosen result.
 const selectResult = (result) => {
   query.value = result;
   showResults.value = false;
 };
 
-// This function returns the bus arrival data base on bus stop code, therefore i need to link this function and give feed the bus code paramters dynamic value from the search box.
-async function fetchBusService() {
-  const busService = await fetch(
-    `https://arrivelah2.busrouter.sg/?id=83139`
-  ).then((response) => response.json());
+/*
+ * Originally both api calls were seperate functions
+ * but I require them to run at the same time but if
+ * I just seperate their fetches into 2 different awaits,* the await keyword pauses the function so the second   * request won't happen till the first one finishes. We  * can have them both run at the sam time using the      * Promise.all() method. This method accepts a single    * argument, which is an array of promises, which makes response an array now.
+ * https://dev.to/alexmercedcoder/making-multiple-api-calls-in-javascript-kip
+ */
+async function search() {
+  const response = await Promise.all([
+    // Fetches all the bus stops in Singapore
+    fetch(`src/assets/formattedData.json`),
 
-  // console.log(busService);
-}
-// fetchBusService();
+    //returns the bus arrival data base on bus stop code
+    fetch(`https://arrivelah2.busrouter.sg/?id=83139`),
+  ]);
 
-// This function fetches all the bus stops in Singapore and puts them an object, thus the busStop const is an object now.
-async function fetchBusStops() {
-  const busStops = await fetch(
-    "https://data.busrouter.sg/v1/stops.min.json"
-  ).then((response) => response.json());
+  // busStops and busServices are both objects
+  /* busStops have key values that are numerical which   * stands for the bus stop ID, each ID is an array with * 3 numerical key values which are lat, lon and name of bus stop.
+   */
+  const busStops = await response[0].json();
 
+  /* busServices has an object string key value of      * "services" which is contain arrays, with each array
+   * contains an object with the specifics of next bus arrival
+   */
+  const busServices = await response[1].json();
+  results.value = busStops;
+
+  console.log(busServices);
   console.log(busStops);
-}
+  showResults.value = true;
 
-fetchBusStops();
+  let matches = 0;
+
+  busStops.filter((result) => {
+    if (
+      result.ID.toLowerCase().includes(
+        query.value.toLocaleLowerCase() && matches < 10
+      )
+    )
+      matches++;
+    return result;
+  });
+}
 </script>
 
 <style scoped></style>
