@@ -14,7 +14,8 @@ const props = defineProps<Props>();
 // }
 
 /* 
-Alternative solution if I don't want to have too many interfaces. Original code: [key: string]: AllBus
+Alternative solution if I don't want to have too many interfaces. 
+Original code on 2nd line of interface: [key: string]: AllBus
  */
 interface AllBuses {
   [key: string]: {

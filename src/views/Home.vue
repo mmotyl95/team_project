@@ -30,6 +30,17 @@ interface BusStops {
   [key: string]: BusStop;
 }
 
+/**
+ * When importing a JSON file in ts, it's treated as ab 'any' type by default.
+ * This means that ts doesn't have any information about the shape of the data.
+ * By creating an interface that defines the structure of the JSON data, we
+ * are telling ts what the data should look like.
+ * The line below is a type assertion which tells typescript that the busStops
+ * JSON should be treated as if it has the 'BusStop' type. The assignment of
+ * busStopData is a new variable with the same data but with the type of 'BusStops'
+ * We can the nuse busStopData in place of busStops in the rest of the code and
+ * ts will understand the shape of the data and be able to check for type errors.
+ */
 const busStopData: BusStops = busStops as BusStops;
 
 const cardStore = useStore();

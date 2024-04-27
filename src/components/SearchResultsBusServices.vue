@@ -6,7 +6,13 @@ import Fuse from "fuse.js";
 import allBus from "../assets/allBus.json";
 
 const store = useStore();
-
+/**
+ * Error message appear: @click="showBusServicesRoute = showBusServicesRoute === i ? null : i"
+ * Message: Type 'number | null' is not assignable to type 'null'. Type 'number' is not assignable to type 'null'.
+ * The error message is telling me that I am trying to assign a value of type 'number | null' to a
+ * variable from the ternary operator. There is no issue with the logic, we just need to tell the
+ * compiler to expect that showBusServiceRoute will either be a number or null type.
+ */
 const showBusServicesRoute = ref<number | null>(null);
 
 // Options to make search results more accurate and return less results if the search is more specific.

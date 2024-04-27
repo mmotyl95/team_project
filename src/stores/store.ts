@@ -1,17 +1,5 @@
 import { defineStore } from "pinia";
 
-interface FavouriteBusStops {
-  [busStopID: string]: boolean;
-}
-interface FavouriteBusServices {
-  [busNumber: string]: boolean;
-}
-
-interface State {
-  favouriteBusStops: FavouriteBusStops;
-  favouriteBusServices: FavouriteBusServices;
-  query: string;
-}
 /**
  * In Setup Stores:
  * ref()s become state properties aka state aka data
@@ -31,6 +19,23 @@ interface State {
 
 //   return { favourite, count, saveBusStop };
 // });
+
+/* 
+    Both favouriteBusStops & favouriteBusServices are objects with a 
+    string key and boolean value
+    */
+interface FavouriteBusStops {
+  [busStopID: string]: boolean;
+}
+interface FavouriteBusServices {
+  [busNumber: string]: boolean;
+}
+
+interface State {
+  favouriteBusStops: FavouriteBusStops;
+  favouriteBusServices: FavouriteBusServices;
+  query: string;
+}
 
 export const useStore = defineStore("card", {
   state: (): State => ({

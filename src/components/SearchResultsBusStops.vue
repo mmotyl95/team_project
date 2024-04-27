@@ -25,6 +25,35 @@ const fuse = new Fuse(busStops, options);
 
 const results = computed(() => fuse.search(store.query, { limit: 10 }));
 
+/**
+ * Before giving the result param a type, there was an error that says:
+ * Parameter 'result' implicitly has an 'any' type. 
+ * This error occurs because typescript does not know the shape of the
+ * result object element. Example of result object elemnt:
+ * {
+    "item": {
+        "ID": "12021",
+        "Name": "Bef Moonbeam Wk",
+        "Longitude": 103.78243,
+        "Latitude": 1.31908
+    },
+    "refIndex": 192,
+    "matches": [
+        {
+            "indices": [
+                [
+                    0,
+                    1
+                ]
+            ],
+            "value": "12021",
+            "key": "ID"
+        }
+    ]
+}
+ * Therefore, creating an interface with the necessary properties allows
+ * typescript to understand the shape of the result object. 
+ */
 interface Item {
   ID: string;
   Name: string;

@@ -6,8 +6,8 @@
  * with each array contains an object with the specifics of next bus arrival
  */
 
+// define the shape of the JSON object returned by the API
 interface BusArrival {
-  // define the shape of the JSON object returned by the API
   services: Array<{
     no: string;
     operator: string;
@@ -23,6 +23,12 @@ interface BusArrival {
   }>;
 }
 
+/**
+ * An async function returns a Promise in js, but in ts, when the promise is returned,
+ * the default data type of the promise is set to any in ts. I need to use the Promise
+ * constructor with the angle bracket which contains the interface to tell the compiler
+ * what shape will the response be.
+ */
 export async function getBusArrival(busStopID: string): Promise<BusArrival> {
   const res = await fetch(`https://arrivelah2.busrouter.sg/?id=${busStopID}`);
   return res.json();
