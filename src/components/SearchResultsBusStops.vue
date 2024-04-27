@@ -25,7 +25,14 @@ const fuse = new Fuse(busStops, options);
 
 const results = computed(() => fuse.search(store.query, { limit: 10 }));
 
-const selectResult = (result) => {
+interface Item {
+  ID: string;
+  Name: string;
+  Longitude: number;
+  Latitude: number;
+}
+
+const selectResult = (result: Item) => {
   /**
    * Originlly the router push method was using path, that way is wrong as it
    * does not go to the timing page but we should use the name instead like

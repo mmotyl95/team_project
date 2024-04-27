@@ -7,6 +7,7 @@
  */
 
 interface BusArrival {
+  // define the shape of the JSON object returned by the API
   services: Array<{
     no: string;
     operator: string;
@@ -20,15 +21,6 @@ interface BusArrival {
       duration_ms: number;
     };
   }>;
-  // define the shape of the JSON object returned by the API
-  // e.g.
-  // busStopId: string;
-  // services: Array<{
-  //   no: string;
-  //   nextBus: {
-  //     estimatedArrival: string;
-  //   }
-  // }>;
 }
 
 export async function getBusArrival(busStopID: string): Promise<BusArrival> {

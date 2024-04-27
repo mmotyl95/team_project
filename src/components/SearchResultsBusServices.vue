@@ -7,7 +7,7 @@ import allBus from "../assets/allBus.json";
 
 const store = useStore();
 
-const showBusServicesRoute = ref(null);
+const showBusServicesRoute = ref<number | null>(null);
 
 // Options to make search results more accurate and return less results if the search is more specific.
 const options = {
@@ -93,7 +93,7 @@ const results = computed(() => fuse.search(store.query, { limit: 10 }));
                   name: 'direction',
                   params: {
                     busNumber: result.item.id,
-                    busRoute: 0,
+                    busRoute: '0',
                   },
                 }"
                 class="dropdown-item"
@@ -106,7 +106,7 @@ const results = computed(() => fuse.search(store.query, { limit: 10 }));
                   name: 'direction',
                   params: {
                     busNumber: result.item.id,
-                    busRoute: 0,
+                    busRoute: '0',
                   },
                 }"
                 class="dropdown-item"
@@ -127,7 +127,7 @@ const results = computed(() => fuse.search(store.query, { limit: 10 }));
                   name: 'direction',
                   params: {
                     busNumber: result.item.id,
-                    busRoute: 1,
+                    busRoute: '1',
                   },
                 }"
                 class="dropdown-item"
