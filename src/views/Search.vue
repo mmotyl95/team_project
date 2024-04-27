@@ -1,5 +1,5 @@
 <script setup>
-import { ref, computed } from "vue";
+import { computed } from "vue";
 
 /**
  * busStops have key values that are numerical which stands for the bus stop ID,
@@ -7,9 +7,10 @@ import { ref, computed } from "vue";
  */
 import busStops from "../assets/formattedData.json";
 import { useRouter } from "vue-router";
+import { useStore } from "../stores/counter";
 
 const router = useRouter();
-const query = ref("");
+const store = useStore();
 
 /**
  * Search results of the bus stop name, will be a list of bus stop objects
@@ -19,7 +20,7 @@ const results = computed(function () {
    * Lowercase the query once to use for search, rather than calling
    * the `toLowerCase` method repeatedly.
    */
-  const queryString = query.value.toLowerCase();
+  const queryString = store.query.toLowerCase();
   const listOfBustStopsThatMatch = [];
 
   for (const busStop of busStops)
@@ -50,60 +51,58 @@ const selectResult = (result) => {
 
 <template>
   <div class="field has-addons has-addons-centered">
-    <router-link :to="{ name: 'home' }" class="icon pt-4 pr-6">
+    <router-link :to="{ name: 'home' }" class="icon pt-4 pr-5">
       <i class="fa fa-arrow-left" aria-hidden="true"></i>
     </router-link>
 
-    <div class="control has-icons-left pr-5">
-      <!--
+    <!--
           Binding this input element to a reactive property called query. When the user
           types into the input field, the computed function will listen for changes in the query,
           which fetches a list of suggestions based on the current value of query. The suggestions 
           are then displayed in a list below the input field.
         -->
+    <div class="control has-icons-left has-icons-right">
       <input
         class="input"
         type="text"
         placeholder="Search buses and bus stops..."
-        v-model="query"
+        v-model="store.query"
       />
-
       <span class="icon is-left">
         <i class="fas fa-search"></i>
       </span>
+      <span v-if="store.query !== ''" class="icon is-right">
+        <i @click="store.clearInput" class="fa-regular fa-x"></i>
+      </span>
+    </div>
+  </div>
 
-      <!-- 
-          Only show the unordered list of items if the query is not an empty string, which 
-          will change if there is input in the search box. To ensure the list of results is 
-          usable, we want the user to click on one of the result and show that value as the chosen one. 
-        -->
-      <ul class="search-result" v-if="query !== ''">
-        <p class="title is-4">Bus Stop Name -- Bus Stop Code</p>
-        <li
-          class="search-results"
-          v-for="(result, i) in results"
-          :key="i"
-          @click="selectResult(result)"
-        >
-          {{ result.ID }} -- {{ result.Name }}
-        </li>
-      </ul>
+  <!-- 
+      Only show the list of items if the query is not an empty string, which 
+      will change if there is input in the search box. To ensure the list of results is 
+      usable, we want the user to click on one of the result and show that value as the chosen one. 
+    -->
+  <div v-if="store.query !== ''" class="container">
+    <p class="header is-5 has-text-centered">Bus Stop Name</p>
+    <div
+      class="columns is-mobile has-background-link-light mb-4 mx-1"
+      v-for="(result, i) in results"
+      :key="i"
+      @click="selectResult(result)"
+    >
+      <div class="column is-4">
+        <p class="title is-4">{{ result.ID }}</p>
+      </div>
+      <div class="column">
+        <p class="title is-5">{{ result.Name }}</p>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-.search-results:hover {
-  list-style: none;
-  margin: 10;
-  padding: 10;
-  background-color: gainsboro;
-}
-
-.search-result {
-  position: relative;
-  border: 1px solid #ccc;
-  padding: 10px;
-  width: inherit;
+.fa-regular {
+  pointer-events: all;
+  cursor: pointer;
 }
 </style>
