@@ -112,7 +112,7 @@ setInterval(async function () {
            * returns time in minutes. If this value is
            * lesser than 1 minute, we want the app to
            * show the string "Arr"
-           *  */
+           */
           Math.floor(busService.next.duration_ms / 60000) < 1
             ? "Arr"
             : Math.floor(busService.next.duration_ms / 60000)

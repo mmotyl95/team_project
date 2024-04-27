@@ -26,17 +26,12 @@ export default defineConfig(({ mode }) => {
           display:'standalone',
           // Smaller icon as launcher icon, larger icon for app switch.
           icons: [
+          // One full stop to reference a file in the same directory. Two full stop if we reference a file from the parent directory
             {
-              src: "../assets/icons/bus-192.png",
+              src: "./assets/icons/bus-192.png",
               type: 'image/png',
               sizes: '192x192',
               purpose: 'maskable'
-            },
-            {
-              src: "../assets/icons/bus-512.png",
-              type: "image/png",
-              sizes: "512x512",
-              purpose: 'any'
             },
           ],
         },
