@@ -4,9 +4,8 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { VitePWA } from "vite-plugin-pwa";
 import basicSSL from "@vitejs/plugin-basic-ssl";
-import vueI18n from '@intlify/vite-plugin-vue-i18n';
+// import vueI18n from '@intlify/vite-plugin-vue-i18n';
 import { dirname, resolve } from "node:path";
-
 
 // https://vitejs.dev/config/#conditional-config
 export default defineConfig(({ mode }) => {
@@ -25,23 +24,23 @@ export default defineConfig(({ mode }) => {
           short_name: "Bussin",
           description: "Bussin Bus Arrival App",
           start_url: "/SG-Bussin/",
-          theme_color: '#ffffff',
-          display:'standalone',
+          theme_color: "#ffffff",
+          display: "standalone",
           // Smaller icon as launcher icon, larger icon for app switch.
           icons: [
-          // One full stop to reference a file in the same directory. Two full stop if we reference a file from the parent directory
+            // One full stop to reference a file in the same directory. Two full stop if we reference a file from the parent directory
             {
               src: "./assets/icons/bus-192.png",
-              type: 'image/png',
-              sizes: '192x192',
-              purpose: 'maskable'
+              type: "image/png",
+              sizes: "192x192",
+              purpose: "maskable",
             },
           ],
         },
       }),
-      vueI18n({
-        include: resolve(dirname(fileURLToPath(import.meta.url)), '../locales'),
-      }),
+      // vueI18n({
+      //   include: resolve(dirname(fileURLToPath(import.meta.url)), "../locales"),
+      // }),
 
       // Enable https by default
       // https://vitejs.dev/config/server-options.html#server-https
