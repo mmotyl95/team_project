@@ -38,9 +38,9 @@ const showBusServicesSearchResults = ref(true);
 
 <template>
   <div class="field has-addons has-addons-centered">
-    <a @click="$router.go(-1)" class="icon pt-4 pr-5">
+    <router-link :to="{ name: 'home' }" class="icon pt-4 pr-5">
       <i class="fa fa-arrow-left" aria-hidden="true"></i>
-    </a>
+    </router-link>
 
     <!--
           Binding this input element to a reactive property called query. When the user

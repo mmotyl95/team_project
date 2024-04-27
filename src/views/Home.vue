@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { useStore } from "../stores/store";
 import busStops from "../assets/busStop.json";
-import OpeningText from "../components/OpeningText.vue";
+
 import FavouriteBusServices from "../components/FavouriteBusServices.vue";
 import FavouriteBusStops from "../components/FavouriteBusStops.vue";
 import LiveGif from "../components/LiveGif.vue";
-import { computed } from "vue";
 
 /**
  * There exist an error in the template below for the line
@@ -89,12 +88,6 @@ these values to be accessible to the child components
 const splitKeys = Object.keys(cardStore.favouriteBusServices).map((key) =>
   key.split("-")
 );
-
-// Looks weird if the liveGif already display in the home page when there are no favourite bus services. I can maybe add more stuff to this function like a text that disappears whenever user favourites a bus stop or bus service
-
-const hasLiveGif = computed(() => {
-  return Object.keys(cardStore.favouriteBusServices).length !== 0;
-});
 </script>
 
 <template>
@@ -136,16 +129,8 @@ const hasLiveGif = computed(() => {
       :busStopID="busStopID"
       :busStopName="busStopData[busStopID].Name"
     />
-    <!-- 
-      Show the liveGif if the liveGif computed values are true
-      Which means that in the favouriteBusServices, there are objects
-    -->
-    <LiveGif v-if="hasLiveGif" />
-    <!-- 
-      Show the text animation if the liveGif computed values are false
-      Which means that in the favouriteBusServices, there are no objects.
-    -->
-    <OpeningText v-if="!hasLiveGif" />
+
+    <LiveGif />
 
     <FavouriteBusServices
       v-for="[busNumber, busStopID] in splitKeys"
