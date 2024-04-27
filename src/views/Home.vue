@@ -37,7 +37,7 @@ const cardStore = useStore();
     <p class="header has-text-centered">Favourite Buses & Stops</p>
 
     <router-link
-      v-for="busStopID in cardStore.favouriteBusStops"
+      v-for="busStopID in Object.keys(cardStore.favouriteBusStops)"
       :key="busStopID"
       :to="{
         name: 'Timing',

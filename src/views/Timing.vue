@@ -1,18 +1,10 @@
 <script setup>
 import { useStore } from "../stores/counter";
-import { ref } from "vue";
-
-const isRed = ref(true);
 
 const cardStore = useStore();
 
 // Define props that is used or busStopID and busStopName
 const props = defineProps(["busStopID", "busStopName"]);
-
-function toggleClass() {
-  isRed.value = isRed != true;
-  console.log(isRed.value);
-}
 
 /**
  * Get the bus arrival data with the bus stop code. busServices
@@ -25,6 +17,27 @@ const getBusArrival = async (busStopID) =>
   );
 
 const busServices = await getBusArrival(props.busStopID);
+
+async function busRoute() {
+  const routes = await fetch(
+    `https://tih-api.stb.gov.sg/smartdocs/v1/sendrequest?targeturl=https://api.stb.gov.sg/services/transport/v2/bus-routes/${143}`,
+    {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "x-api-key": "MxMU9TgdQUH6tCqGs4gVEFgAGZWOA4Q7",
+      },
+    }
+  ).then((res) => res.json());
+
+  const actualRouteData = JSON.parse(
+    decodeURIComponent(routes.responseContent)
+  );
+
+  console.log(actualRouteData.data);
+}
+
+// busRoute();
 </script>
 
 <template>
@@ -81,6 +94,7 @@ const busServices = await getBusArrival(props.busStopID);
     class="columns is-mobile has-background-link-light mb-4 mx-1"
     v-for="(busService, i) in busServices.services"
     :key="i"
+    @click="busRoute"
   >
     <div class="column has-text-centered">
       <p class="heading">Bus</p>

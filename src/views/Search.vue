@@ -12,6 +12,11 @@ import { useStore } from "../stores/counter";
 const router = useRouter();
 const store = useStore();
 
+// const fuse = new Fuse(busStops, {
+//   keys: ["ID", "Name"],
+// });
+
+// fuse.search("hasanah");
 /**
  * Search results of the bus stop name, will be a list of bus stop objects
  */

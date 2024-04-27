@@ -8,6 +8,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vitejs/plugin-basic-ssl": "^1.0.1",
+    "fuse.js": "^6.6.2",
     "pinia": "^2.0.26",
     "pinia-plugin-persistedstate": "^3.0.1",
     "vue": "^3.2.45",
