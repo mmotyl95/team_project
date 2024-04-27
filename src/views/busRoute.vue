@@ -22,7 +22,7 @@ const busRoutes = allBus[props.busNumber].routes[0];
         implement saving of bus numbers in home page, we can't force this back icon to 
         a specific page since it might originate from home page or timing page. 
       -->
-      <a @click="$router.back()" class="navbar-item">
+      <a @click="$router.go(-1)" class="navbar-item">
         <i class="fa fa-arrow-left" aria-hidden="true"></i>
       </a>
       <div class="navbar-item">Bus number {{ busNumber }}</div>
@@ -49,7 +49,13 @@ const busRoutes = allBus[props.busNumber].routes[0];
   <!-- End of Navbar -->
 
   <router-link
-    :to="{ name: Timing }"
+    :to="{
+      name: 'Timing',
+      params: {
+        busStopID: busStop[busRoute].ID,
+        busStopName: busStop[busRoute].Name,
+      },
+    }"
     class="columns is-mobile has-background-link-light mb-4 mx-1"
     v-for="(busRoute, i) in busRoutes"
     :key="i"

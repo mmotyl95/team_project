@@ -37,9 +37,9 @@ setInterval(async function () {
   >
     <div class="navbar-brand">
       <!-- Search icon that should return to the previous search result -->
-      <router-link :to="{ name: 'Search' }" class="navbar-item">
+      <a @click="$router.go(-1)" class="navbar-item">
         <i class="fa fa-arrow-left" aria-hidden="true"></i>
-      </router-link>
+      </a>
 
       <!-- Home icon which takes us back to main page -->
       <router-link :to="{ name: 'home' }" class="navbar-item">
@@ -87,7 +87,7 @@ setInterval(async function () {
     :key="i"
     :to="{
       name: 'busRoute',
-      params: { busNumber: busService.no },
+      params: { busNumber: busService.no, busStopID: busStopID },
     }"
   >
     <div class="column has-text-centered">
