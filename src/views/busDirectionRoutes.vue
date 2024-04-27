@@ -4,13 +4,43 @@ import busStop from "../assets/busStop.json";
 
 interface Props {
   busNumber: string;
-  busRoute: String;
+  busRoute: string;
 }
 const props = defineProps<Props>();
 
-const busRoutes = allBus[props.busNumber].routes[props.busRoute];
+// interface AllBus {
+//   name: string;
+//   routes: string[][];
+// }
 
-// console.log(busRoutes);
+/* 
+Alternative solution if I don't want to have too many interfaces. Original code: [key: string]: AllBus
+ */
+interface AllBuses {
+  [key: string]: {
+    name: string;
+    routes: string[][];
+  };
+}
+
+const allBusServices: AllBuses = allBus as AllBuses;
+
+// Refer to comment on Home.vue as same problem was met.
+interface BusStop {
+  ID: string;
+  Name: string;
+  Longitude: number;
+  Latitude: number;
+}
+
+interface BusStops {
+  [key: string]: BusStop;
+}
+
+const busStopData: BusStops = busStop as BusStops;
+
+const busRoutes =
+  allBusServices[props.busNumber].routes[Number(props.busRoute)];
 </script>
 
 <template>
@@ -56,8 +86,8 @@ const busRoutes = allBus[props.busNumber].routes[props.busRoute];
     :to="{
       name: 'Timing',
       params: {
-        busStopID: busStop[busRoute].ID,
-        busStopName: busStop[busRoute].Name,
+        busStopID: busStopData[busRoute].ID,
+        busStopName: busStopData[busRoute].Name,
       },
     }"
     class="columns is-mobile has-background-link-light mb-4 mx-1"
@@ -65,12 +95,10 @@ const busRoutes = allBus[props.busNumber].routes[props.busRoute];
     :key="i"
   >
     <div class="column is-4">
-      <p class="title is-4">{{ busStop[busRoute].ID }}</p>
+      <p class="title is-4">{{ busStopData[busRoute].ID }}</p>
     </div>
     <div class="column">
-      <p class="title is-5">{{ busStop[busRoute].Name }}</p>
+      <p class="title is-5">{{ busStopData[busRoute].Name }}</p>
     </div>
   </router-link>
 </template>
-
-<style lang="scss" scoped></style>

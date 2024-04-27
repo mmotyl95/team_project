@@ -3,7 +3,30 @@ import { ref } from "vue";
 import allBus from "../assets/allBus.json";
 import busStop from "../assets/busStop.json";
 
-const props = defineProps(["busNumber", "busStopID"]);
+const props = defineProps<{
+  busNumber: string;
+  busStopID: string;
+}>();
+
+interface AllBus {
+  [key: string]: {
+    name: string;
+    routes: string[][];
+  };
+}
+
+const allBusServices: AllBus = allBus as AllBus;
+
+interface BusStops {
+  [key: string]: {
+    ID: string;
+    Name: string;
+    Longitude: number;
+    Latitude: number;
+  };
+}
+
+const busStopData: BusStops = busStop as BusStops;
 /* 
  If the busStopID matches one of the bus stop id in first array of route, display
  the first array of route, if it matches one of the bus stop id in the second 
@@ -38,15 +61,15 @@ the bus service from timing page.
  but if the routes have 2 arrays, continue the previous logic. Need to use function because
  we have to return the value if the first conditional statement is true.
  */
-const busRoutes = ref(undefined);
+const busRoutes = ref<string[]>([]);
 
 function checkBusStopID() {
-  const firstRoute = allBus[props.busNumber].routes[0];
-  if (allBus[props.busNumber].name.includes("⟲")) {
+  const firstRoute = allBusServices[props.busNumber].routes[0];
+  if (allBusServices[props.busNumber].name.includes("⟲")) {
     busRoutes.value = firstRoute;
     return;
   }
-  const secondRoute = allBus[props.busNumber].routes[1];
+  const secondRoute = allBusServices[props.busNumber].routes[1];
   if (
     firstRoute.includes(props.busStopID) &&
     secondRoute.includes(props.busStopID)
@@ -59,7 +82,6 @@ function checkBusStopID() {
       ? firstRoute
       : secondRoute;
   }
-  return busRoutes;
 }
 checkBusStopID();
 
@@ -145,7 +167,7 @@ only have one array and thus for those routes, the secondRoute value is undefine
       name: 'Timing',
       params: {
         busStopID: busRoute,
-        busStopName: busStop[busRoute].Name,
+        busStopName: busStopData[busRoute].Name,
       },
     }"
     class="columns is-mobile has-background-link-light mb-4 mx-1"
@@ -156,7 +178,7 @@ only have one array and thus for those routes, the secondRoute value is undefine
       <p class="title is-4">{{ busRoute }}</p>
     </div>
     <div class="column">
-      <p class="title is-5">{{ busStop[busRoute].Name }}</p>
+      <p class="title is-5">{{ busStopData[busRoute].Name }}</p>
     </div>
   </router-link>
 </template>

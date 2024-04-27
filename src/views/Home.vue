@@ -6,15 +6,45 @@ import FavouriteBusServices from "../components/FavouriteBusServices.vue";
 import FavouriteBusStops from "../components/FavouriteBusStops.vue";
 import LiveGif from "../components/LiveGif.vue";
 
+/**
+ * There exist an error in the template below for the line
+ *  :busStopName="busStops[busStopID].Name"
+ * The error message is very long but basically the error says
+ * that I am trying to use a string(busStopID) as an index to
+ * access an element in the busStops JSON object.
+ * This happened because the compiler does not know that the
+ * keys of the busStops object match the values of the
+ * busStopID variable. Therefore we need to tell the compiler
+ * that the busStops object is an object where the keys are
+ * strings and the values have the shape of the BusStop interface.
+ */
+
+interface BusStop {
+  ID: string;
+  Name: string;
+  Longitude: number;
+  Latitude: number;
+}
+
+interface BusStops {
+  [key: string]: BusStop;
+}
+
+const busStopData: BusStops = busStops as BusStops;
+
 const cardStore = useStore();
 /*
 const splitKeys = Object.keys(cardStore.favouriteBusServices)
   .toString()
   .split("-");
 
-My assumption previously was that because Object.keys(cardStore.favouriteBusServices) returns an array, to use the split() method, the data must first be a string and hence i chose the toString() method, and there would be no issues looping through it in <template> because split() method returns an array as well. 
+My assumption previously was that because Object.keys(cardStore.favouriteBusServices) 
+returns an array, to use the split() method, the data must first be a string and 
+hence i chose the toString() method, and there would be no issues looping through it 
+in <template> because split() method returns an array as well.
 
-However, the previous method of doing things return me just one array that looks smth like this if i have 4 key properties in the cardStore
+However, the previous method of doing things return me just one array that looks 
+something like this if i have 4 key properties in the cardStore.
 
 [
   "143",
@@ -24,10 +54,17 @@ However, the previous method of doing things return me just one array that looks
   "20231"
 ]
 
-What i realise from your comment previously was that i need to split('-') for each of the key.
-This means i need to create a new array with the same number of elements but without changing the original array after changing it from an object to array using the Object.keys method.
+What i realise from your comment previously was that i need to split('-') for 
+each of the key. This means i need to create a new array with the same number 
+of elements but without changing the original array after changing it from an 
+object to array using the Object.keys method.
 
-Therefore I chose the .map) method because it does what I want, it allows me to iterate over the key values of the array and split them by the dash character, creating an array of arrays where each inner array contains the to values that were previously seperated by a dash. This way, I can use the v-for directive to loop through the array and assign the values to seperate variables, allowing these values to be accessible to the child components
+Therefore I chose the .map) method because it does what I want, it allows me 
+to iterate over the key values of the array and split them by the dash character, 
+creating an array of arrays where each inner array contains the to values that 
+were previously seperated by a dash. This way, I can use the v-for directive 
+to loop through the array and assign the values to seperate variables, allowing 
+these values to be accessible to the child components
  */
 
 // console.log(splitKeys);
@@ -79,7 +116,7 @@ const splitKeys = Object.keys(cardStore.favouriteBusServices).map((key) =>
       v-for="busStopID in Object.keys(cardStore.favouriteBusStops)"
       :key="busStopID"
       :busStopID="busStopID"
-      :busStopName="busStops[busStopID].Name"
+      :busStopName="busStopData[busStopID].Name"
     />
 
     <LiveGif />
@@ -89,7 +126,7 @@ const splitKeys = Object.keys(cardStore.favouriteBusServices).map((key) =>
       :key="busNumber"
       :busNumber="busNumber"
       :busStopID="busStopID"
-      :busStopName="busStops[busStopID].Name"
+      :busStopName="busStopData[busStopID].Name"
     />
   </main>
 </template>
