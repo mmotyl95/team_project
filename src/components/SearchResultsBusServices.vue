@@ -37,7 +37,7 @@ const selectResult = (result) => {
 
   // Redirect to the busRoute view and pass results as busNumber prop
   router.push({
-    name: "busRoute",
+    name: "direction",
     params: { busNumber: result.item },
   });
 };
@@ -59,7 +59,7 @@ const selectResult = (result) => {
       @click="selectResult(result)"
     >
       <div class="column">
-        <p class="title is-4">{{ result.item }}</p>
+        <p class="title is-4 has-text-centered">{{ result.item }}</p>
       </div>
     </div>
   </div>
