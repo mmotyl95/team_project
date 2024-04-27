@@ -20,13 +20,23 @@ export default defineConfig(({ mode }) => {
         manifest: {
           name: "SG Bussin",
           short_name: "Bussin",
-          description: "Bussin bus schedule app",
-          start_url: "/",
+          description: "Bussin Bus Arrival App",
+          start_url: "/SG-Bussin/",
+          theme_color: '#ffffff',
+          display:'standalone',
+          // Smaller icon as launcher icon, larger icon for app switch.
           icons: [
+            {
+              src: "../assets/icons/bus-192.png",
+              type: 'image/png',
+              sizes: '192x192',
+              purpose: 'maskable'
+            },
             {
               src: "../assets/icons/bus.png",
               type: "image/png",
               sizes: "512x512",
+              purpose: 'any'
             },
           ],
         },
