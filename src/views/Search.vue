@@ -82,6 +82,7 @@ const selectResult = (result) => {
         type="text"
         placeholder="Search buses and bus stops..."
         v-model="store.query"
+        style="width: 400px"
       />
       <span class="icon is-left">
         <i class="fas fa-search"></i>
@@ -93,14 +94,32 @@ const selectResult = (result) => {
     </div>
   </div>
 
+  <div class="columns is-mobile">
+    <div class="column">
+      <button class="button">Bus Stops</button>
+    </div>
+    <div class="column">
+      <button class="button">Bus Service only</button>
+    </div>
+    <div class="column">
+      <button class="button">Filter by smth else</button>
+    </div>
+  </div>
+
   <!-- 
-      Only show the list of items if the query is not an empty string, which 
-      will change if there is input in the search box. To ensure the list of results is 
-      usable, we want the user to click on one of the result and show that value as the chosen one. 
+      Only show the list of items if the query is not an empty string, which will change if
+      there is input in the search box. To ensure the list of results is usable, we want the
+      user to click on one of the result and show that value as the chosen one. 
     -->
   <div v-if="store.query !== ''" class="container">
     <p class="header is-5 has-text-centered">Bus Stop Name</p>
-    <!-- On the side of the "in" keyword, it contains the result element of the results aray which is on the right side of the word. What I did not look at was the shape of the results array. The output was in an 'item' which contains the data I need (ID & Name). So without thinking I went to give the results array a dot item which should be remembered forever as something I should never do again. To access the values in an object we use dot notation. Since the ID & name data is stored in the item key, we can simply just .item the result element to access it. -->
+
+    <!-- On the left side of the "in" keyword, it contains the result element of the results aray 
+      which is on the right side. What I did not look at was the shape of the results array. 
+      The output was in an 'item' which contains the data I need (ID & Name). So without thinking I went
+      to give the results array a dot item which should be remembered forever as something I should 
+      never do again. To access the values in an object we use dot notation. Since the ID & name data 
+      is stored in the item key, we can simply just .item the result element to access it. -->
     <div
       class="columns is-mobile has-background-link-light mb-4 mx-1"
       v-for="(result, i) in results"
@@ -121,5 +140,9 @@ const selectResult = (result) => {
 .fa-regular {
   pointer-events: all;
   cursor: pointer;
+}
+
+.button {
+  width: 100%;
 }
 </style>

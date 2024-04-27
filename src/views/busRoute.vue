@@ -15,7 +15,7 @@ async function busRoute() {
     decodeURIComponent(routes.responseContent)
   );
 
-  console.log(actualRouteData.data);
+  console.log(actualRouteData);
 }
 
 busRoute();
