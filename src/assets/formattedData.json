@@ -361,13 +361,13 @@
     },
     {
         "ID": "10351",
-        "Name": "Bef Tiong Bahru Rd",
+        "Name": "Blk 95B",
         "Longitude": 103.82205,
         "Latitude": 1.28676
     },
     {
         "ID": "10359",
-        "Name": "Aft Tiong Bahru Rd",
+        "Name": "Opp Blk 95C",
         "Longitude": 103.82259,
         "Latitude": 1.28724
     },
@@ -571,7 +571,7 @@
     },
     {
         "ID": "11019",
-        "Name": "Pk Hotel Alexandra",
+        "Name": "Bef Blk 2",
         "Longitude": 103.80566,
         "Latitude": 1.2868
     },
@@ -979,7 +979,7 @@
     },
     {
         "ID": "11389",
-        "Name": "Blk 46",
+        "Name": "Buona Vista CC",
         "Longitude": 103.79293,
         "Latitude": 1.30907
     },
@@ -3271,13 +3271,13 @@
     },
     {
         "ID": "19041",
-        "Name": "Opp Sch Of Science & Tech",
+        "Name": "Opp Sch of Science & Tech",
         "Longitude": 103.77553,
         "Latitude": 1.31236
     },
     {
         "ID": "19049",
-        "Name": "Sch Of Science & Tech",
+        "Name": "Sch of Science & Tech",
         "Longitude": 103.77479,
         "Latitude": 1.31266
     },
@@ -3523,7 +3523,7 @@
     },
     {
         "ID": "20201",
-        "Name": "Blk 39",
+        "Name": "Bef Blk 39",
         "Longitude": 103.74341,
         "Latitude": 1.32128
     },
@@ -9030,12 +9030,6 @@
         "Latitude": 1.31264
     },
     {
-        "ID": "40189",
-        "Name": "Newton Stn Exit B",
-        "Longitude": 103.83816,
-        "Latitude": 1.31223
-    },
-    {
         "ID": "40191",
         "Name": "Aft Draycott Pk",
         "Longitude": 103.83043,
@@ -10411,7 +10405,7 @@
     },
     {
         "ID": "43629",
-        "Name": "Yusof Ishak Sec Sch",
+        "Name": "St. Andrew's Mission Sch",
         "Longitude": 103.75916,
         "Latitude": 1.34241
     },
@@ -15007,7 +15001,7 @@
     },
     {
         "ID": "52479",
-        "Name": "Opp EASB",
+        "Name": "Opp EAIM",
         "Longitude": 103.84579,
         "Latitude": 1.3275
     },
@@ -21115,7 +21109,7 @@
     },
     {
         "ID": "66351",
-        "Name": "S'Goon Stn Exit B",
+        "Name": "S'goon Stn Exit E",
         "Longitude": 103.87324,
         "Latitude": 1.3505
     },
@@ -21152,8 +21146,8 @@
     {
         "ID": "66381",
         "Name": "Opp S'Goon Stn Exit F",
-        "Longitude": 103.87254,
-        "Latitude": 1.36503
+        "Longitude": 103.87123,
+        "Latitude": 1.3502
     },
     {
         "ID": "66389",
@@ -23263,13 +23257,13 @@
     },
     {
         "ID": "72171",
-        "Name": "Opp HomeTeamns Bedok",
+        "Name": "Opp HomeTeamNS",
         "Longitude": 103.91849,
         "Latitude": 1.34247
     },
     {
         "ID": "72179",
-        "Name": "HomeTeamns Bedok",
+        "Name": "HomeTeamNS",
         "Longitude": 103.91877,
         "Latitude": 1.34232
     },
@@ -23844,6 +23838,30 @@
         "Latitude": 1.364
     },
     {
+        "ID": "75541",
+        "Name": "Opp Blk 648A",
+        "Longitude": 103.94152,
+        "Latitude": 1.36831
+    },
+    {
+        "ID": "75549",
+        "Name": "Blk 648A",
+        "Longitude": 103.94141,
+        "Latitude": 1.36825
+    },
+    {
+        "ID": "75551",
+        "Name": "Blk 641A",
+        "Longitude": 103.94341,
+        "Latitude": 1.36627
+    },
+    {
+        "ID": "75559",
+        "Name": "Blk 646B",
+        "Longitude": 103.94319,
+        "Latitude": 1.36642
+    },
+    {
         "ID": "75561",
         "Name": "Blk 648C",
         "Longitude": 103.94133,
@@ -23876,7 +23894,7 @@
     {
         "ID": "75589",
         "Name": "Opp Blk 638A",
-        "Longitude": 103.94243,
+        "Longitude": 103.94543,
         "Latitude": 1.36412
     },
     {
@@ -24973,13 +24991,13 @@
     },
     {
         "ID": "78141",
-        "Name": "Greenview Sec Sch",
+        "Name": "Blk 249",
         "Longitude": 103.96367,
         "Latitude": 1.37007
     },
     {
         "ID": "78149",
-        "Name": "Opp Greenview Sec Sch",
+        "Name": "NTUC Health Pasir Ris",
         "Longitude": 103.96412,
         "Latitude": 1.3697
     },
@@ -28681,7 +28699,7 @@
     },
     {
         "ID": "97301",
-        "Name": "Agility",
+        "Name": "Aft Changi Nth St 1",
         "Longitude": 103.9698,
         "Latitude": 1.35182
     },
@@ -28831,7 +28849,7 @@
     },
     {
         "ID": "98119",
-        "Name": "Loyang Pt",
+        "Name": "Loyang Pt/Opp Blk 256",
         "Longitude": 103.96433,
         "Latitude": 1.36719
     },
@@ -30433,7 +30451,7 @@
     },
     {
         "ID": "09059",
-        "Name": "Natl Youth Council",
+        "Name": "Somerset Youth Pk",
         "Longitude": 103.83624,
         "Latitude": 1.30044
     },
