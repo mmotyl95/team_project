@@ -23,6 +23,7 @@ interface BusStops {
     Name: string;
     Longitude: number;
     Latitude: number;
+    Street: string;
   };
 }
 
@@ -183,6 +184,9 @@ only have one array and thus for those routes, the secondRoute value is undefine
     </div>
     <div class="column">
       <p class="title is-5">{{ busStopData[busRoute].Name }}</p>
+      <p class="subtitle is-6">
+        {{ busStopData[busRoute].Street }}
+      </p>
     </div>
   </router-link>
 </template>
