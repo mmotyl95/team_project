@@ -30,7 +30,7 @@ setInterval(async function () {
 
 <template>
   <router-link
-    class="columns is-mobile has-background-link-light mb-4 mx-1"
+    class="columns is-mobile has-background-info mb-4 mx-1"
     :to="{
       name: 'Timing',
       params: {
@@ -40,11 +40,11 @@ setInterval(async function () {
     }"
   >
     <div class="column has-text-centered is-5">
-      <p class="is-size-6">{{ busNumber }}</p>
-      <p class="is-size-7">{{ busStopName }}</p>
+      <p class="is-size-6 has-text-black">{{ busNumber }}</p>
+      <p class="is-size-7 has-text-black">{{ busStopName }}</p>
     </div>
     <div class="column has-text-centered">
-      <p class="heading">next</p>
+      <p class="heading has-text-black">next</p>
       <p v-if="arrival?.next?.duration_ms" class="title is-5">
         {{
           /**
@@ -61,14 +61,14 @@ setInterval(async function () {
     </div>
 
     <div class="column has-text-centered">
-      <p class="heading">Second</p>
+      <p class="heading has-text-black">Second</p>
       <p v-if="arrival?.next2?.duration_ms" class="title is-5">
         {{ Math.floor(arrival.next2.duration_ms / 60000) }}
       </p>
     </div>
 
     <div class="column has-text-centered">
-      <p class="heading">Third</p>
+      <p class="heading has-text-black">Third</p>
       <p v-if="arrival?.next3?.duration_ms" class="title is-5">
         {{ Math.floor(arrival.next3.duration_ms / 60000) }}
       </p>

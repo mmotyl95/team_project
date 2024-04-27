@@ -1,5 +1,8 @@
 <script setup lang="ts">
-const props = defineProps(["busStopID", "busStopName"]);
+const props = defineProps<{
+  busStopID: string;
+  busStopName: string;
+}>();
 </script>
 
 <template>
@@ -11,7 +14,7 @@ const props = defineProps(["busStopID", "busStopName"]);
         busStopName,
       },
     }"
-    class="columns is-mobile has-background-link-light is-multiline mb-5 mx-1"
+    class="columns is-mobile has-background-info is-multiline mb-5 mx-1"
   >
     <div class="column is-one-third">
       <p class="title is-4">
