@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "../stores/store";
 import { getBusArrival } from "../api/getBusInfo";
 import LiveGif from "../components/LiveGif.vue";
@@ -144,7 +144,11 @@ setInterval(async function () {
     <div class="column has-text-centered">
       <p class="heading">Second</p>
       <p v-if="busService?.next2?.duration_ms" class="title is-5">
-        {{ Math.floor(busService.next2.duration_ms / 60000) }}
+        {{
+          Math.floor(busService.next2.duration_ms / 60000) < 1
+            ? "Arr"
+            : Math.floor(busService.next2.duration_ms / 60000)
+        }}
       </p>
       <p v-else="busService?.next2?.duration_ms === null" class="title is-5">
         {{ `- ` }}

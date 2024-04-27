@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import { getBusArrival } from "../api/getBusInfo";
 
 interface Props {
@@ -66,7 +66,11 @@ setInterval(async function () {
     <div class="column has-text-centered">
       <p class="heading has-text-black">Second</p>
       <p v-if="arrival?.next2?.duration_ms" class="title is-5">
-        {{ Math.floor(arrival.next2.duration_ms / 60000) }}
+        {{
+          Math.floor(arrival.next2.duration_ms / 60000) < 1
+            ? "Arr"
+            : Math.floor(arrival.next2.duration_ms / 60000)
+        }}
       </p>
       <p v-else="busService?.next2?.duration_ms === null" class="title is-5">
         {{ `- ` }}
