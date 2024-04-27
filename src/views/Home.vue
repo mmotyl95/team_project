@@ -1,13 +1,15 @@
 <script setup>
 import { useStore } from "../stores/counter";
 
+import busStops from "../assets/busStop.json";
+
 const cardStore = useStore();
 </script>
 
 <template>
   <main>
     <nav
-      class="navbar is-fixed top is-info"
+      class="navbar has-background-light"
       role="navigation"
       aria-label="main navigation"
     >
@@ -16,59 +18,54 @@ const cardStore = useStore();
         <!-- 
           Navbar burger only is shown on touch devices so there is a navbar menu below with the same exact icons and routing to search page. But if navbar-burger is removed, the search icon will disappear in mobile view although the navbar-end is present. Therefore an addition icon for navbar-menu is needed
          -->
-        <a href="/Search" class="navbar-burger has-text-centered pt-4">
+        <router-link
+          :to="{ name: 'Search' }"
+          class="navbar-burger has-text-centered pt-4"
+        >
           <i class="fa fa-search"></i>
-        </a>
+        </router-link>
       </div>
       <div class="navbar-menu">
         <div class="navbar-end">
-          <a href="/Search" class="navbar-item">
+          <router-link :to="{ name: 'Search' }" class="navbar-item">
             <i class="fa fa-search"></i>
-          </a>
+          </router-link>
         </div>
       </div>
     </nav>
 
-    <div class="bus-cards">
-      <p class="header has-text-centered">Favourite Buses & Stops</p>
+    <p class="header has-text-centered">Favourite Buses & Stops</p>
 
-      <div
-        class="columns is-multiline is-3-desktop is-8-widescreen is-2-fullhd"
-      >
-        <div class="column is-full">
-          <p class="notification is-primary">
-            Bus Stop Code||||
-            <span class="has-text-right is-capitalized">Bus stop name</span>
-          </p>
-        </div>
-        <div class="column is-full">
-          <p class="notification is-primary">
-            Bus Stop Code||||
-            <span class="has-text-right is-capitalized">Bus stop name</span>
-          </p>
-        </div>
-        <div class="column is-full">
-          <p class="notification is-primary">
-            Bus Stop Code||||
-            <span class="has-text-right is-capitalized">Bus stop name</span>
-          </p>
-        </div>
-        <div class="column is-full">
-          <p class="notification is-primary">
-            Bus Stop Code||||
-            <span class="has-text-right is-capitalized">Bus stop name</span>
-          </p>
-        </div>
+    <router-link
+      v-for="busStopID in cardStore.favouriteBusStops"
+      :key="busStopID"
+      :to="{
+        name: 'Timing',
+        params: {
+          busStopID: busStopID,
+          busStopName: busStops[busStopID].Name,
+        },
+      }"
+      class="columns is-mobile has-background-link-light is-multiline mb-5 mx-1"
+    >
+      <div class="column is-one-third">
+        <p class="title is-4">
+          {{ busStopID }}
+        </p>
       </div>
-    </div>
 
-    {{ cardStore.count }}
+      <div class="column">
+        <p class="title is-5">
+          {{ busStops[busStopID].Name }}
+        </p>
+      </div>
+    </router-link>
   </main>
 </template>
 
 <style>
-.column {
-  border-color: blue;
+.columns {
+  border-radius: 15px;
 }
 
 .header {
