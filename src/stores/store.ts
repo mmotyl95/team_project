@@ -1,5 +1,17 @@
 import { defineStore } from "pinia";
 
+interface FavouriteBusStops {
+  [busStopID: string]: boolean;
+}
+interface FavouriteBusServices {
+  [busNumber: string]: boolean;
+}
+
+interface State {
+  favouriteBusStops: FavouriteBusStops;
+  favouriteBusServices: FavouriteBusServices;
+  query: string;
+}
 /**
  * In Setup Stores:
  * ref()s become state properties aka state aka data
@@ -21,7 +33,7 @@ import { defineStore } from "pinia";
 // });
 
 export const useStore = defineStore("card", {
-  state: () => ({
+  state: (): State => ({
     /**
      * Use to be an array previously (favouriteBusStops: [],)
      * Change it to an object format so that we can assign bus stop IDs a true value
@@ -30,8 +42,8 @@ export const useStore = defineStore("card", {
      */
     favouriteBusStops: {},
     favouriteBusServices: {},
-
     query: "",
+
     // isRed: false,
   }),
 
@@ -68,7 +80,7 @@ export const useStore = defineStore("card", {
      * It became simpler now after changing to an object format and heart icon toggling
      * issue is also solved.
      */
-    toggleBusStop(busStopID) {
+    toggleBusStop(busStopID: string) {
       if (this.favouriteBusStops[busStopID] === true) {
         delete this.favouriteBusStops[busStopID];
         console.log("Removed from favourites.");
@@ -83,7 +95,7 @@ export const useStore = defineStore("card", {
     to differentiate which bus service is saved at 
     which particular bus stop.
      */
-    toggleBusServices(busNumber, busStopID) {
+    toggleBusServices(busNumber: string, busStopID: string) {
       if (this.favouriteBusServices[`${busNumber}-${busStopID}`] === true) {
         delete this.favouriteBusServices[`${busNumber}-${busStopID}`];
         console.log("Removed from favourites.");
