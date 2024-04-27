@@ -7,7 +7,6 @@ import { ref, computed } from "vue";
  */
 import busStops from "../assets/formattedData.json";
 import { useRouter } from "vue-router";
-// const props = defineProps(["getBusArrival"]);
 
 const router = useRouter();
 const query = ref("");
@@ -30,38 +29,20 @@ const results = computed(function () {
     ) {
       listOfBustStopsThatMatch.push(busStop);
 
-      // Return the array early if there is already 5 matches or more
-      if (listOfBustStopsThatMatch.length >= 5) return listOfBustStopsThatMatch;
+      // Return the array early if there is already 10 matches or more
+      if (listOfBustStopsThatMatch.length >= 10)
+        return listOfBustStopsThatMatch;
     }
 
   return listOfBustStopsThatMatch;
 });
 
 const selectResult = (result) => {
-  // emit("getBusArrival", result);
-  console.log(result);
   // Originlly the router push method was using path, that way is wrong as it does not go to the timing page but we should use the name instead like what we used in the router.js file.
-  router.push({ name: "Timing" });
-  // getBusArrivalData(result);
+
+  // Redirect to the Timing view and pass results as busStopID prop
+  router.push({ name: "Timing", params: { busStopID: result } });
 };
-
-// 83139 -- Example bus code
-/**
- * Function to get bus arrival data with a given bus stop code
- */
-async function getBusArrivalData(result) {
-  /**
-   * Get the bus arrival data with the bus stop code.
-   * busServices has an object string key value of "services" which contains arrays,
-   * with each array contains an object with the specifics of next bus arrival
-   */
-  const busServices = await fetch(
-    `https://arrivelah2.busrouter.sg/?id=${result}`
-  ).then((res) => res.json());
-  console.log(busServices);
-
-  return busServices;
-}
 </script>
 
 <template>

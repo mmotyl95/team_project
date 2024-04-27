@@ -1,5 +1,4 @@
 <script setup>
-// import SearchBar from "@/components/SearchBar.vue";
 import BusCards from "@/components/BusCards.vue";
 </script>
 
@@ -15,10 +14,8 @@ import BusCards from "@/components/BusCards.vue";
         <a href="/Search" class="navbar-burger has-text-centered pt-4">
           <i class="fa fa-search" aria-hidden="true"></i>
         </a>
-        <!-- navbar items, navbar burger... -->
       </div>
     </nav>
-    <!-- <SearchBar /> -->
     <BusCards />
   </main>
 </template>
