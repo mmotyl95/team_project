@@ -2,9 +2,9 @@
 import allBus from "../assets/allBus.json";
 import busStop from "../assets/busStop.json";
 
-const props = defineProps(["busNumber"]);
+const props = defineProps(["busNumber", "busRoute"]);
 
-const busRoutes = allBus[props.busNumber].routes[0];
+const busRoutes = allBus[props.busNumber].routes[props.busRoute];
 
 // console.log(busRoutes);
 </script>

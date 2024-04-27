@@ -32,7 +32,7 @@ const router = createRouter({
       props: true,
     },
     {
-      path: "/busroute/:busNumber",
+      path: "/busroute/:busNumber/:busRoute",
       name: "direction",
       component: busDirectionRoutes,
       props: true,
