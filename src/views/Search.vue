@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from "vue";
+import Fuse from "fuse.js";
 
 /**
  * busStops have key values that are numerical which stands for the bus stop ID,
@@ -12,35 +13,44 @@ import { useStore } from "../stores/counter";
 const router = useRouter();
 const store = useStore();
 
-// const fuse = new Fuse(busStops, {
-//   keys: ["ID", "Name"],
-// });
-
-// fuse.search("hasanah");
 /**
+ * Original way of implementing autocomplete search function before importing fuse.
  * Search results of the bus stop name, will be a list of bus stop objects
  */
-const results = computed(function () {
-  /**
-   * Lowercase the query once to use for search, rather than calling
-   * the `toLowerCase` method repeatedly.
-   */
-  const queryString = store.query.toLowerCase();
-  const listOfBustStopsThatMatch = [];
+// const results = computed(function () {
 
-  for (const busStop of busStops)
-    if (
-      busStop.Name.toLowerCase().includes(queryString) ||
-      busStop.ID.includes(queryString)
-    ) {
-      listOfBustStopsThatMatch.push(busStop);
+/**
+ * Lowercase the query once to use for search, rather than calling
+ * the `toLowerCase` method repeatedly.
+ */
+// const queryString = store.query.toLowerCase();
+// const listOfBustStopsThatMatch = [];
+// for (const busStop of busStops)
+//   if (
+//     busStop.Name.toLowerCase().includes(queryString) ||
+//     busStop.ID.includes(queryString)
+//   ) {
+//     listOfBustStopsThatMatch.push(busStop);
+//     // Return the array early if there is already 10 matches or more
+//     if (listOfBustStopsThatMatch.length >= 10)
+//       return listOfBustStopsThatMatch;
+//   }
+// return listOfBustStopsThatMatch;
+// });
 
-      // Return the array early if there is already 10 matches or more
-      if (listOfBustStopsThatMatch.length >= 10)
-        return listOfBustStopsThatMatch;
-    }
+// Options to make search results more accurate and return less results if the search is more specific.
+const options = {
+  threshold: 0.3,
+  distance: 20,
+  includeMatches: true,
+  includeScore: true,
+  keys: ["ID", "Name"],
+};
 
-  return listOfBustStopsThatMatch;
+const fuse = new Fuse(busStops, options);
+
+const results = computed(() => {
+  return fuse.search(store.query, { limit: 10 });
 });
 
 const selectResult = (result) => {
@@ -76,6 +86,7 @@ const selectResult = (result) => {
       <span class="icon is-left">
         <i class="fas fa-search"></i>
       </span>
+      <!-- Show x icon only if query has value. -->
       <span v-if="store.query !== ''" class="icon is-right">
         <i @click="store.clearInput" class="fa-regular fa-x"></i>
       </span>
@@ -89,17 +100,18 @@ const selectResult = (result) => {
     -->
   <div v-if="store.query !== ''" class="container">
     <p class="header is-5 has-text-centered">Bus Stop Name</p>
+    <!-- On the side of the "in" keyword, it contains the result element of the results aray which is on the right side of the word. What I did not look at was the shape of the results array. The output was in an 'item' which contains the data I need (ID & Name). So without thinking I went to give the results array a dot item which should be remembered forever as something I should never do again. To access the values in an object we use dot notation. Since the ID & name data is stored in the item key, we can simply just .item the result element to access it. -->
     <div
       class="columns is-mobile has-background-link-light mb-4 mx-1"
       v-for="(result, i) in results"
       :key="i"
-      @click="selectResult(result)"
+      @click="selectResult(result.item)"
     >
       <div class="column is-4">
-        <p class="title is-4">{{ result.ID }}</p>
+        <p class="title is-4">{{ result.item.ID }}</p>
       </div>
       <div class="column">
-        <p class="title is-5">{{ result.Name }}</p>
+        <p class="title is-5">{{ result.item.Name }}</p>
       </div>
     </div>
   </div>
