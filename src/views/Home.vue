@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { useStore } from "../stores/store";
 import busStops from "../assets/busStop.json";
-
+import HomeText from "../components/HomeText.vue";
 import FavouriteBusServices from "../components/FavouriteBusServices.vue";
 import FavouriteBusStops from "../components/FavouriteBusStops.vue";
 import LiveGif from "../components/LiveGif.vue";
+import { computed } from "vue";
 
 /**
  * There exist an error in the template below for the line
@@ -79,15 +80,25 @@ these values to be accessible to the child components
  */
 
 // console.log(splitKeys);
+
+const busServiceArray = Object.keys(cardStore.favouriteBusServices);
+const busStopArray = Object.keys(cardStore.favouriteBusStops);
+
 /**
  * const splitKey = Object.entries(cardStore.favouriteBusServices).map(([key]) =>
  key.split("-"));
  * This code returns the same results as using Object.keys
  */
 
-const splitKeys = Object.keys(cardStore.favouriteBusServices).map((key) =>
-  key.split("-")
-);
+const splitKeys = busServiceArray.map((key) => key.split("-"));
+
+const hasLiveGif = computed(() => {
+  return busServiceArray.length !== 0;
+});
+
+const hasFavourited = computed(() => {
+  if (busStopArray.length !== 0 || busServiceArray.length !== 0) return true;
+});
 </script>
 
 <template>
@@ -130,7 +141,16 @@ const splitKeys = Object.keys(cardStore.favouriteBusServices).map((key) =>
       :busStopName="busStopData[busStopID].Name"
     />
 
-    <LiveGif />
+    <!-- 
+        Show the text animation if the liveGif computed values are false
+        Which means that in the favouriteBusServices, there are no objects.
+      -->
+    <HomeText v-if="!hasFavourited" />
+    <!-- 
+      Show the liveGif if the liveGif computed values are true
+      Which means that in the favouriteBusServices, there are objects
+    -->
+    <LiveGif v-if="hasLiveGif" />
 
     <FavouriteBusServices
       v-for="[busNumber, busStopID] in splitKeys"
