@@ -4,6 +4,7 @@ import busStops from "../assets/busStop.json";
 
 import FavouriteBusServices from "../components/FavouriteBusServices.vue";
 import FavouriteBusStops from "../components/FavouriteBusStops.vue";
+import LiveGif from "../components/LiveGif.vue";
 
 const cardStore = useStore();
 </script>
@@ -47,6 +48,8 @@ const cardStore = useStore();
       :busStopID="busStopID"
       :busStopName="busStops[busStopID].Name"
     />
+
+    <LiveGif />
 
     <FavouriteBusServices
       v-for="[busNumber, busStopID] in Object.entries(

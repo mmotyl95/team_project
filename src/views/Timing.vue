@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import { useStore } from "../stores/store";
 import { getBusArrival } from "../api/getBusArrival";
+import LiveGif from "../components/LiveGif.vue";
 
 const cardStore = useStore();
 
@@ -78,13 +79,7 @@ setInterval(async function () {
   </nav>
 
   <!-- Live Gif to tell user that time is being updated in real time -->
-
-  <iframe
-    src="https://giphy.com/embed/PisferDnOMqQOMC4ir"
-    width="100"
-    height="50"
-    class="giphy"
-  ></iframe>
+  <LiveGif />
 
   <!--
     Originally used bulma's level for timing to be displayed horizontally,
@@ -168,10 +163,5 @@ setInterval(async function () {
 
 .active {
   color: red;
-}
-
-/* Give it a special none clickable pointer-event because without it, clicking it will redirect to gif source. */
-.giphy {
-  pointer-events: none;
 }
 </style>
