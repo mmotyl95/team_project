@@ -76,6 +76,15 @@ setInterval(async function () {
     </div>
   </nav>
 
+  <!-- Live Gif to tell user that time is being updated in real time -->
+
+  <iframe
+    src="https://giphy.com/embed/PisferDnOMqQOMC4ir"
+    width="100"
+    height="100"
+    class="giphy"
+  ></iframe>
+
   <!--
     Originally used bulma's level for timing to be displayed horizontally,
     but when all the values are loop through using the v-for directive,
@@ -146,5 +155,9 @@ setInterval(async function () {
 
 .active {
   color: red;
+}
+
+.giphy {
+  pointer-events: none;
 }
 </style>
