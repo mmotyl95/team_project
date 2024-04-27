@@ -40,7 +40,7 @@ setInterval(async function () {
     }"
   >
     <div class="column has-text-centered is-5">
-      <p class="is-size-6 has-text-black">{{ busNumber }}</p>
+      <p class="is-size-5 has-text-black">{{ busNumber }}</p>
       <p class="is-size-7 has-text-black">{{ busStopName }}</p>
     </div>
     <div class="column has-text-centered">
