@@ -59,6 +59,7 @@ interface Item {
   Name: string;
   Longitude: number;
   Latitude: number;
+  Street: string;
 }
 
 const selectResult = (result: Item) => {
@@ -85,12 +86,14 @@ const selectResult = (result: Item) => {
   <div v-if="store.query !== ''" class="container">
     <p class="header is-5 has-text-centered mb-4">Bus Stop Name</p>
 
-    <!-- On the left side of the "in" keyword, it contains the result element of the results aray 
+    <!-- 
+      On the left side of the "in" keyword, it contains the result element of the results aray 
       which is on the right side. What I did not look at was the shape of the results array. 
       The output was in an 'item' which contains the data I need (ID & Name). So without thinking I went
       to give the results array a dot item which should be remembered forever as something I should 
       never do again. To access the values in an object we use dot notation. Since the ID & name data 
-      is stored in the item key, we can simply just .item the result element to access it. -->
+      is stored in the item key, we can simply just .item the result element to access it. 
+    -->
     <div
       class="columns is-mobile has-background-link-light mb-4 mx-1"
       v-for="(result, i) in results"
@@ -101,7 +104,12 @@ const selectResult = (result: Item) => {
         <p class="title is-4">{{ result.item.ID }}</p>
       </div>
       <div class="column">
-        <p class="title is-5">{{ result.item.Name }}</p>
+        <p class="title is-5">
+          {{ result.item.Name }}
+        </p>
+        <p class="subtitle is-6">
+          {{ result.item.Street }}
+        </p>
       </div>
     </div>
   </div>
