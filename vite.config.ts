@@ -33,7 +33,7 @@ export default defineConfig(({ mode }) => {
               purpose: 'maskable'
             },
             {
-              src: "../assets/icons/bus.png",
+              src: "../assets/icons/bus-512.png",
               type: "image/png",
               sizes: "512x512",
               purpose: 'any'
