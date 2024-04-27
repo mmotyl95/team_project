@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useStore } from "../stores/store";
 import { computed } from "vue";
 import { ref } from "vue";

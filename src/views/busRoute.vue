@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import allBus from "../assets/allBus.json";
 import busStop from "../assets/busStop.json";

@@ -1,8 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import allBus from "../assets/allBus.json";
 import busStop from "../assets/busStop.json";
 
-const props = defineProps(["busNumber", "busRoute"]);
+interface Props {
+  busNumber: string;
+  busRoute: String;
+}
+const props = defineProps<Props>();
 
 const busRoutes = allBus[props.busNumber].routes[props.busRoute];
 

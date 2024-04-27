@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { getBusArrival } from "../api/getBusArrival";
 
@@ -9,7 +9,9 @@ async function getBusArrivalForSpecificBusNumber() {
   const { services } = await getBusArrival(props.busStopID);
 
   // Find bus arrival timing of this busNumber at this busStop from all arrival timings
-  return services.find((arrival) => arrival.no === props.busNumber);
+  return services.find(
+    (arrival: { no: any }) => arrival.no === props.busNumber
+  );
 }
 
 /**

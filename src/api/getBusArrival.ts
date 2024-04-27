@@ -7,6 +7,7 @@
  */
 
 interface BusArrival {
+services: any;
   // define the shape of the JSON object returned by the API
   // e.g.
   // busStopId: string;

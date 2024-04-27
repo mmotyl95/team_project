@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { ref } from "vue";
 import { useStore } from "../stores/store";
 import SearchResultsBusStops from "../components/SearchResultsBusStops.vue";
