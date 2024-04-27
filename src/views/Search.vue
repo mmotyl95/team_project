@@ -38,10 +38,14 @@ const results = computed(function () {
 });
 
 const selectResult = (result) => {
+  console.log(result);
   // Originlly the router push method was using path, that way is wrong as it does not go to the timing page but we should use the name instead like what we used in the router.js file.
 
   // Redirect to the Timing view and pass results as busStopID prop
-  router.push({ name: "Timing", params: { busStopID: result } });
+  router.push({
+    name: "Timing",
+    params: { busStopID: result.ID, busStopName: result.Name },
+  });
 };
 </script>
 
@@ -76,7 +80,7 @@ const selectResult = (result) => {
           class="search-results"
           v-for="(result, i) in results"
           :key="i"
-          @click="selectResult(result.ID)"
+          @click="selectResult(result)"
         >
           {{ result.ID }} -- {{ result.Name }}
         </li>

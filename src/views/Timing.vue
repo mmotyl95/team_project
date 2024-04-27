@@ -1,7 +1,15 @@
 <script setup>
-import { ref } from "vue";
-
-const props = defineProps(["busStopID"]);
+// Define props that is used or busStopID and busStopName
+const props = defineProps({
+  busStopID: {
+    type: String,
+    required: true,
+  },
+  busStopName: {
+    type: String,
+    required: true,
+  },
+});
 
 /**
  * Get the bus arrival data with the bus stop code.
