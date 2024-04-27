@@ -15,13 +15,24 @@
       <!-- 
         Only show the unordered list of items when showResults turns true, which will be when there is input in the search box. To ensure the list of results is usable, we want the user to click on one of the result and show that value as the chosen one. 
       -->
-      <ul v-if="showResults">
+      <ul class="search-result" v-if="showResults">
+        <!-- Bus Stop Code:
         <li
+          class="search-results"
           v-for="result in results"
-          :key="result.ID"
+          :key="result"
           @click="selectResult(result)"
         >
-          {{ result }}
+          {{ result.ID }}
+        </li> -->
+        Bus Stop Name:
+        <li
+          class="search-results"
+          v-for="result in results"
+          :key="result"
+          @click="selectResult(result)"
+        >
+          {{ result.Name }}
         </li>
       </ul>
     </div>
@@ -34,9 +45,9 @@
 <script setup>
 import { ref } from "vue";
 
-const query = ref("");
-const results = ref([]);
-const showResults = ref(false);
+let query = ref("");
+let results = ref([]);
+let showResults = ref(false);
 
 // When user clicks on one of the results, we need to close the list of results for a better user experience and assign the query value as the chosen result.
 const selectResult = (result) => {
@@ -68,24 +79,55 @@ async function search() {
    * contains an object with the specifics of next bus arrival
    */
   const busServices = await response[1].json();
+
+  // Stores the bus stop data in the results array
   results.value = busStops;
 
-  console.log(busServices);
-  console.log(busStops);
+  // console.log(busServices);
+  // console.log(busStops);
+
+  // becomes true to show the list of results to user
   showResults.value = true;
 
-  let matches = 0;
+  // let matches = 0;
+  // if (JSON.stringify(busStops).includes(query.value.toLowerCase()))
+  //   console.log("input match");
 
-  busStops.filter((result) => {
-    if (
-      result.ID.toLowerCase().includes(
-        query.value.toLocaleLowerCase() && matches < 10
-      )
-    )
-      matches++;
-    return result;
-  });
+  return busStops.filter((result) =>
+    result.toLowerCase().includes(query.value.toLowerCase())
+  );
 }
+//     if (
+//       result.Name.toLowerCase().includes(
+//         query.value.toLowerCase() && matches < 10
+//       )
+//     )
+//       console.log("Input value found)");
+//     // matches++;
+//     else {
+//       console.log("input not found");
+//     }
+//     return result;
+//   });
+
+// const result = busStops.filter((data) => {
+//   return Object.keys(data).some((key) => {
+//     return JSON.stringify(data[key].trim().includes(query));
+//   });
+// });
 </script>
 
-<style scoped></style>
+<style scoped>
+.search-results {
+  list-style: none;
+  margin: 10;
+  padding: 10;
+}
+
+.search-result {
+  position: relative;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: inherit;
+}
+</style>
