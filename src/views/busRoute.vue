@@ -3,10 +3,88 @@ import allBus from "../assets/allBus.json";
 import busStop from "../assets/busStop.json";
 
 const props = defineProps(["busNumber", "busStopID"]);
+/* 
+ If the busStopID matches one of the bus stop id in first array of route, display
+ the first array of route, if it matches one of the bus stop id in the second 
+ array of route, display the second array. How can I do it? Use conditional 
+ checker v-if in our case so far does not seem to be possible cuz in router-link 
+ element we use v-for and documentation say to not use v-if and v-for in the 
+ same element. I cant see how to use v-if in the subsequent elements. 
+ */
 
-const busRoutes = allBus[props.busNumber].routes[0];
+/* 
+Original way of checking for busStopID in either of the array, but then i went 
+to test and realized that he order is mixed up sometimes because in the array, 
+the first and last bus stop id is the same but has its place swapped which 
+results in the wrong order of direction displayed sometimes when user clicks 
+the bus service from timing page.
+ */
 
-// console.log(busRoutes);
+/* 
+  const busRoutes = allBus[props.busNumber].routes[0].includes(props.busStopID)
+  ? allBus[props.busNumber].routes[0]
+  : allBus[props.busNumber].route[1];
+ */
+
+/* 
+  Below is if we do it using a function and we have to add a @click directive 
+  to the <router-link> element below. There is minimal performance difference 
+  since our app is so simple and should not cause a significant concern. 
+  However if the logic is used in multiple palces, it can be beneficial to 
+  extract the logic into a function to avoid code duplication and improve maintainability.
+ */
+
+/* 
+function checkBusStopID() {
+  const firstRoute = allBus[props.busNumber].routes[0];
+  const secondRoute = allBus[props.busNumber].routes[1];
+  let busRoutes;
+  if (
+    firstRoute.includes(props.busStopID) &&
+    secondRoute.includes(props.busStopID)
+  ) {
+    const firstIndex = firstRoute.indexOf(props.busStopID);
+    const secondIndex = secondRoute.indexOf(props.busStopID);
+    busRoutes = firstIndex < secondIndex ? firstRoute : secondRoute;
+  } else {
+    busRoutes = firstRoute.includes(props.busStopID) ? firstRoute : secondRoute;
+  }
+  return busRoutes;
+}
+
+const busRoutes = checkBusStopID();
+ */
+
+/* 
+Initialize different route array to be used as checker later and instantiate 
+memory for busRoute but don't assign values to it because it will change its values later. 
+*/
+const firstRoute = allBus[props.busNumber].routes[0];
+const secondRoute = allBus[props.busNumber].routes[1];
+let busRoutes;
+
+/* 
+Check both routes array whether the busStopID exist, this is for the first and
+last value because theywill be in both arrays. If the busStopID exists in both array,
+it then compares the index of the busStopID in the first array with the second array.
+We then use a ternary operator to determine the direction of the bus. If the index in 
+the first array is smaller than that of the second array, the bus is going in the 
+direction of the first route, otherwise it is going in the direction of the second route.
+ */
+if (
+  firstRoute.includes(props.busStopID) &&
+  secondRoute.includes(props.busStopID)
+) {
+  const firstIndex = firstRoute.indexOf(props.busStopID);
+  const secondIndex = secondRoute.indexOf(props.busStopID);
+  busRoutes = firstIndex < secondIndex ? firstRoute : secondRoute;
+} else {
+  /* 
+  Straightforward because if the busStopID exist only in one of the array, 
+  just assign the busRoute array where the busStopID is found.
+  */
+  busRoutes = firstRoute.includes(props.busStopID) ? firstRoute : secondRoute;
+}
 </script>
 
 <template>
@@ -52,7 +130,7 @@ const busRoutes = allBus[props.busNumber].routes[0];
     :to="{
       name: 'Timing',
       params: {
-        busStopID: busStop[busRoute].ID,
+        busStopID: busRoute,
         busStopName: busStop[busRoute].Name,
       },
     }"
@@ -61,7 +139,7 @@ const busRoutes = allBus[props.busNumber].routes[0];
     :key="i"
   >
     <div class="column is-4">
-      <p class="title is-4">{{ busStop[busRoute].ID }}</p>
+      <p class="title is-4">{{ busRoute }}</p>
     </div>
     <div class="column">
       <p class="title is-5">{{ busStop[busRoute].Name }}</p>
