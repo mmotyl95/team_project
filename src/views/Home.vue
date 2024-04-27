@@ -62,6 +62,38 @@ const cardStore = useStore();
         </p>
       </div>
     </router-link>
+
+    <router-link
+      class="columns is-mobile has-background-link-light mb-4 mx-1"
+      v-for="[busNumber, busStopID] in Object.entries(
+        cardStore.favouriteBusServices
+      )"
+      :key="busNumber"
+      :to="{
+        name: 'Timing',
+        params: {
+          busStopID: busStopID,
+          busStopName: busStops[busStopID].Name,
+        },
+      }"
+    >
+      <div class="column has-text-centered is-5">
+        <p class="is-size-6">{{ busNumber }}</p>
+        <p class="is-size-7">{{ busStops[busStopID].Name }}</p>
+      </div>
+      <div class="column has-text-centered">
+        <p class="heading">next</p>
+        <p class="title is-4">1st</p>
+      </div>
+      <div class="column has-text-centered">
+        <p class="heading">Second</p>
+        <p class="title is-4">2nd</p>
+      </div>
+      <div class="column has-text-centered">
+        <p class="heading">Third</p>
+        <p class="title is-4">3rd</p>
+      </div>
+    </router-link>
   </main>
 </template>
 
