@@ -2,6 +2,9 @@
 import { useStore } from "../stores/store";
 import busStops from "../assets/busStop.json";
 
+import FavouriteBusServices from "../components/FavouriteBusServices.vue";
+import FavouriteBusStops from "../components/FavouriteBusStops.vue";
+
 const cardStore = useStore();
 </script>
 
@@ -38,62 +41,22 @@ const cardStore = useStore();
 
     <p class="header has-text-centered mb-4">Favourite Buses & Stops</p>
 
-    <router-link
+    <FavouriteBusStops
       v-for="busStopID in Object.keys(cardStore.favouriteBusStops)"
       :key="busStopID"
-      :to="{
-        name: 'Timing',
-        params: {
-          busStopID: busStopID,
-          busStopName: busStops[busStopID].Name,
-        },
-      }"
-      class="columns is-mobile has-background-link-light is-multiline mb-5 mx-1"
-    >
-      <div class="column is-one-third">
-        <p class="title is-4">
-          {{ busStopID }}
-        </p>
-      </div>
+      :busStopID="busStopID"
+      :busStopName="busStops[busStopID].Name"
+    />
 
-      <div class="column">
-        <p class="title is-5">
-          {{ busStops[busStopID].Name }}
-        </p>
-      </div>
-    </router-link>
-
-    <router-link
-      class="columns is-mobile has-background-link-light mb-4 mx-1"
+    <FavouriteBusServices
       v-for="[busNumber, busStopID] in Object.entries(
         cardStore.favouriteBusServices
       )"
       :key="busNumber"
-      :to="{
-        name: 'Timing',
-        params: {
-          busStopID: busStopID,
-          busStopName: busStops[busStopID].Name,
-        },
-      }"
-    >
-      <div class="column has-text-centered is-5">
-        <p class="is-size-6">{{ busNumber }}</p>
-        <p class="is-size-7">{{ busStops[busStopID].Name }}</p>
-      </div>
-      <div class="column has-text-centered">
-        <p class="heading">next</p>
-        <p class="title is-4">1st</p>
-      </div>
-      <div class="column has-text-centered">
-        <p class="heading">Second</p>
-        <p class="title is-4">2nd</p>
-      </div>
-      <div class="column has-text-centered">
-        <p class="heading">Third</p>
-        <p class="title is-4">3rd</p>
-      </div>
-    </router-link>
+      :busNumber="busNumber"
+      :busStopID="busStopID"
+      :busStopName="busStops[busStopID].Name"
+    />
   </main>
 </template>
 
