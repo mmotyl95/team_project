@@ -6,9 +6,10 @@ import LiveGif from "../components/LiveGif.vue";
 
 const cardStore = useStore();
 
-// Define props that is used or busStopID and busStopName
-const props = defineProps(["busStopID", "busStopName"]);
-
+const props = defineProps<{
+  busStopID: string;
+  busStopName: string;
+}>();
 /**
  * busServices is accessed in template using the v-for directive, since we
  * want the timing to be updated in real time, we just have to use setInterval

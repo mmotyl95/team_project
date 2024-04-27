@@ -7,7 +7,19 @@
  */
 
 interface BusArrival {
-services: any;
+  services: Array<{
+    no: string;
+    operator: string;
+    next: {
+      duration_ms: number;
+    };
+    next2: {
+      duration_ms: number;
+    };
+    next3: {
+      duration_ms: number;
+    };
+  }>;
   // define the shape of the JSON object returned by the API
   // e.g.
   // busStopId: string;

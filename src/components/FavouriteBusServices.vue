@@ -2,18 +2,20 @@
 import { ref } from "vue";
 import { getBusArrival } from "../api/getBusArrival";
 
-const props = defineProps(["busNumber", "busStopID", "busStopName"]);
+interface Props {
+  busNumber: string;
+  busStopName: string;
+  busStopID: string;
+}
+const props = defineProps<Props>();
 
 async function getBusArrivalForSpecificBusNumber() {
   // Call API to get all bus arrival timing of this bus stop
   const { services } = await getBusArrival(props.busStopID);
 
   // Find bus arrival timing of this busNumber at this busStop from all arrival timings
-  return services.find(
-    (arrival: { no: any }) => arrival.no === props.busNumber
-  );
+  return services.find((arrival) => arrival.no === props.busNumber);
 }
-
 /**
  * `arrival` is accessed in template, since we
  * want the timing to be updated in real time, we just have to use setInterval
