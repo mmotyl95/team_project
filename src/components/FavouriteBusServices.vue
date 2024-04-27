@@ -25,7 +25,7 @@ const arrival = ref(await getBusArrivalForSpecificBusNumber());
 
 setInterval(async function () {
   arrival.value = await getBusArrivalForSpecificBusNumber();
-}, 20000);
+}, 15000);
 </script>
 
 <template>
