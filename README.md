@@ -52,7 +52,7 @@ This app makes use of the following API:
 
 ## License
 
-This project is licensed under the [MIT License](https://github.com/Sh3lby007/vue-bus/blob/main/LICENSE).
+This project is licensed under the [MIT License](https://github.com/Sh3lby007/SG-Bussin/blob/main/LICENSE).
 
 ## Contact
 

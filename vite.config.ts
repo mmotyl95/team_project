@@ -18,9 +18,9 @@ export default defineConfig(({ mode }) => {
 
         // Manifest JSON
         manifest: {
-          name: "shelbus schedule",
-          short_name: "shelbus",
-          description: "Simple bus schedule app",
+          name: "SG Bussin",
+          short_name: "Bussin",
+          description: "Bussin bus schedule app",
           start_url: "/",
           icons: [
             {
@@ -47,6 +47,6 @@ export default defineConfig(({ mode }) => {
     // When deploying to Github pages, the base URL will be your repo's name,
     // Thus the production base URL must be changed here for it to work when deployed.
     // Ref: https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site#next-steps
-    base: mode === "github-pages" ? "/vue-bus/" : "/",
+    base: mode === "github-pages" ? "/SG-Bussin/" : "/",
   };
 });
