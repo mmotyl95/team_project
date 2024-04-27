@@ -45,10 +45,10 @@ const busServices = await getBusArrival(props.busStopID);
 
       <div class="navbar-item">
         <i
-          :class="{ active: isRed }"
+          :class="{ active: cardStore.favouriteBusStops[busStopID] }"
           class="fa-solid fa-heart"
           aria-hidden="true"
-          @click="cardStore.toggleBusStop(busStopID), toggleClass()"
+          @click="cardStore.toggleBusStop(busStopID)"
         ></i>
       </div>
       <div class="navbar-item">{{ busStopName }}</div>
