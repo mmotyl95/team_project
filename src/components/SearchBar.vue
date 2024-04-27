@@ -8,7 +8,7 @@
         are then displayed in a list below the input field.
       -->
       <input
-        class="input is-rounded is-hovered"
+        class="input"
         type="text"
         placeholder="Search buses and bus stops..."
         v-model="query"
@@ -24,28 +24,16 @@
         usable, we want the user to click on one of the result and show that value as the chosen one. 
       -->
       <ul class="search-result" v-if="query !== ''">
-        <!-- Bus Stop Code:
-        <li
-          class="search-results"
-          v-for="result in results"
-          :key="result"
-          @click="selectResult(result)"
-        >
-          {{ result.ID }}
-        </li> -->
-        Bus Stop Name:
+        <p class="title is-4">Bus Stop Name -- Bus Stop Code</p>
         <li
           class="search-results"
           v-for="(result, i) in results"
           :key="i"
-          @click="selectResult(result)"
+          @click="selectResult(result.ID)"
         >
-          {{ result.Name }}
+          {{ result.ID }} -- {{ result.Name }}
         </li>
       </ul>
-    </div>
-    <div class="control">
-      <button class="button is-info is-rounded">Search</button>
     </div>
   </div>
 </template>
@@ -74,8 +62,12 @@ const results = computed(function () {
   const listOfBustStopsThatMatch = [];
 
   for (const busStop of busStops)
-    if (busStop.Name.toLowerCase().includes(queryString)) {
+    if (
+      busStop.Name.toLowerCase().includes(queryString) ||
+      busStop.ID.includes(queryString)
+    ) {
       listOfBustStopsThatMatch.push(busStop);
+      showResults.value = true;
 
       // Return the array early if there is already 5 matches or more
       if (listOfBustStopsThatMatch.length >= 5) return listOfBustStopsThatMatch;
@@ -89,7 +81,6 @@ const results = computed(function () {
  * for a better user experience and assign the query value as the chosen result.
  */
 const selectResult = (result) => {
-  query.value = result;
   showResults.value = false;
 };
 
@@ -112,10 +103,11 @@ async function getBusArrivalData(busStopCode) {
 </script>
 
 <style scoped>
-.search-results {
+.search-results:hover {
   list-style: none;
   margin: 10;
   padding: 10;
+  background-color: gainsboro;
 }
 
 .search-result {
