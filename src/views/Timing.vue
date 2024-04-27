@@ -40,12 +40,28 @@ setInterval(async function () {
       </router-link>
 
       <div class="navbar-item">
-        <i
-          :class="{ active: cardStore.favouriteBusStops[busStopID] }"
-          class="fa-solid fa-heart"
-          aria-hidden="true"
+        <!-- 
+          To make the heart icon more intuitive to click I needed to use the empty ehart icon as base.
+          Therefore, I put the icon inside the span element which is used as a contiaaner for the heart 
+          icon and the icon colour. Use the class binding to conditionally change the colour of the icon 
+          depending on whether the value exists in the pnia store anot.
+         -->
+        <span
+          :class="{
+            'has-text-black': !cardStore.favouriteBusStops[busStopID],
+            'has-text-danger': cardStore.favouriteBusStops[busStopID],
+          }"
+          class="icon"
           @click="cardStore.toggleBusStop(busStopID)"
-        ></i>
+        >
+          <i
+            :class="
+              cardStore.favouriteBusStops[busStopID]
+                ? 'fas fa-heart'
+                : 'far fa-heart'
+            "
+          ></i>
+        </span>
       </div>
 
       <div class="navbar-item">{{ busStopID }} | {{ busStopName }}</div>
@@ -138,20 +154,28 @@ setInterval(async function () {
 
     <div class="column has-text-centered is-1">
       <!-- 
+        Refer refactored code to heart icon in navbar.
         @click.prevent ensures that only the custom click event is executed and not the
         router-link element click event.
        -->
-
-      <i
+      <span
         :class="{
-          active:
+          'has-text-black':
+            !cardStore.favouriteBusServices[`${busService.no}-${busStopID}`],
+          'has-text-danger':
             cardStore.favouriteBusServices[`${busService.no}-${busStopID}`],
         }"
-        class="fa-solid fa-heart"
-        aria-hidden="true"
+        class="icon"
         @click.prevent="cardStore.toggleBusServices(busService.no, busStopID)"
       >
-      </i>
+        <i
+          :class="
+            cardStore.favouriteBusServices[`${busService.no}-${busStopID}`]
+              ? 'fas fa-heart'
+              : 'far fa-heart'
+          "
+        ></i>
+      </span>
     </div>
   </router-link>
 </template>
@@ -159,9 +183,5 @@ setInterval(async function () {
 <style scoped>
 .columns {
   border-radius: 15px;
-}
-
-.active {
-  color: red;
 }
 </style>
