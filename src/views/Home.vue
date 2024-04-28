@@ -111,7 +111,7 @@ const hasFavourited = computed(() => {
     >
       <div class="navbar-brand">
         <div class="navbar-item is-size-5 has-text-weight-semibold">
-          SG Bussin
+          Live bus app
         </div>
         <!-- 
           Navbar burger only is shown on touch devices so there is a navbar menu 
